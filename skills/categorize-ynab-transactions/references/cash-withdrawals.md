@@ -82,8 +82,9 @@ unchanged events considered for `keep`.
    under its new ID after a split conversion), every evidenced fee
    represented exactly once in the fee category, separate rebates, exact parent
    and split totals, no duplicate legs, and preserved approval states. An event
-   passes only with evidenced fees (evidenced zero, or inferred from the
-   amount) and every check satisfied. Unknown fees or missing evidence keep it
+   passes when every check is satisfied and its fee status is one step 1
+   allows: evidenced positive, evidenced zero, inferred from the amount, or a
+   user-requested estimate. Unknown fees or missing evidence keep it
    blocked, even when the transfer is balanced and categoryless.
 
 ## Worked example
