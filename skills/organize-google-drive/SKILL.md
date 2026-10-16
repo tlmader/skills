@@ -22,14 +22,16 @@ below covers it.
 
 All state lives in `ORGANIZE.md`, a plain Markdown file in the root of My
 Drive, owned by the user. Find it by searching for a file titled `ORGANIZE.md`
-whose parent is the My Drive root and whose owner is the user.
+whose parent is the My Drive root and whose owner is the user. Drive's web UI
+previews Markdown without editing it, so the user edits `ORGANIZE.md` with
+Drive for desktop or a connected text editor, or simply answers in chat.
 
 Sections, in order:
 
 - `Rules`: one per line, `[confirmed|trial n/3] <when> → <action>  (evidence:
   <why>)`.
 - `Shared folders`: one line per **boundary**, `- <name> (<folder id>) — top
-  level swept: yes|no`. A boundary is a folder the user owns whose sharing
+  level swept: unasked|yes|no`. A boundary is a folder the user owns whose sharing
   differs from its parent's: the point where other people's access starts or
   changes. Its subfolders that inherit that sharing sit inside the same
   boundary. Moving a file across a boundary changes who can see it.
@@ -73,7 +75,7 @@ which is the price of a durable record.
 When no `ORGANIZE.md` exists, survey My Drive: top-level folders, naming
 habits, what sits loose in root, and every boundary at any depth. Write what
 you observe as `trial` rules, list the boundaries under `Shared folders` with
-`top level swept: no`, add up to 5 questions, write a log entry with the survey
+`top level swept: unasked`, add up to 5 questions, write a log entry with the survey
 summary and no rows, create `ORGANIZE.md`, and end with the report. The first
 run changes nothing else.
 
@@ -114,8 +116,9 @@ run changes nothing else.
    line once done.
 
 3. **Sweep.** First refresh `Shared folders`: add any new boundary, at any
-   depth, as `top level swept: no`, and queue one question asking whether its
-   loose top-level files should be organized.
+   depth, as `top level swept: unasked`. For every `unasked` boundary with no
+   open or queued question yet, queue one asking whether its loose top-level
+   files should be organized; the answer sets `yes` or `no`.
 
    Candidates are files, not folders, that the user owns and that sit in the
    My Drive root, in an `Inbox folders` folder, or in the top level of a
@@ -146,7 +149,8 @@ run changes nothing else.
    dropped row of a file this skill moved out of a swept location, add `-
    <file id> (<rule>)` to a `Placed` section. Save, then
    report counts moved, renamed, trashed, and held; reversals learned from;
-   the open questions; and a link to `ORGANIZE.md`. In a scheduled run, notify
+   the open questions, which the user can answer in chat; and a link to
+   `ORGANIZE.md`. In a scheduled run, notify
    the user only when something changed or a new question needs them; a run
    with no actions and no new questions stays silent.
 
