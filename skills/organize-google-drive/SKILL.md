@@ -35,7 +35,9 @@ Sections, in order:
   is empty and remove its line.
 - `Backlog`: specific actions the user already approved. Boundary crossings
   listed here are pre-approved.
-- `Questions`: numbered, at most 5 open.
+- `Questions`: numbered, at most 5 open. While a free slot exists, each run
+  asks about one `top level swept: no` folder: should its loose top-level
+  files be organized? The answer sets the flag.
 - `Log`: one entry per run, newest first: a `### <start date and time, with
   timezone> — <summary>` heading,
   one or two lines of prose, then a table with columns `file id | title | old
@@ -62,8 +64,8 @@ habits, what sits loose in root, which top-level folders are shared), write
 what you observe as `trial` rules, list the shared folders under `Shared
 folders` with `top level swept: no`, add up to 5 questions, write a log entry
 with the survey summary and no rows, create `ORGANIZE.md`, and end with the
-report. The first run changes nothing else; the next run sweeps everything the
-survey saw.
+report. The first run changes nothing else; the next run sweeps the root and
+inbox folders the survey saw.
 
 ## Steps
 

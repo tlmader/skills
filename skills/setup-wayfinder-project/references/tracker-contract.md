@@ -14,7 +14,7 @@ Preserve these display names and meanings exactly.
 | Property | Notion type | Contract |
 |---|---|---|
 | `Issue` | Title | The Map or Ticket name. |
-| `Type` | Select | Exactly `Map`, `Research`, `Prototype`, `Grilling`, `Task`. |
+| `Type` | Select | Start with exactly `Map`, `Research`, `Prototype`, `Grilling`, `Task`. Upgrades preserve additional existing options and values. |
 | `Status` | Status | Notion's native default lifecycle: `Not started`, `In progress`, `Done`; default `Not started`. |
 | `Parent` | Self-relation | A Ticket points to exactly one Map; a Map is empty. |
 | `Tickets` | Reciprocal self-relation | The Map's child Tickets. |

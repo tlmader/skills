@@ -28,9 +28,11 @@ unrelated events or dates. Set:
 
 Resolve `Author` before searching. Search only that author's entries near the
 relevant date, then compare event meaning. Refetch before updating and require
-an exact author match. For a rich-text `Author`, write and match the exact
-value above; for a People `Author`, set and require exactly that user ID as
-the only person. When ownership is empty, different, multiple, or changed,
+an exact author match. For a rich-text `Author`, write and match the
+speaker's name exactly: the value above for the default author, or the name
+another speaker gives. For a People `Author`, resolve the speaker's Notion
+user ID (the value above for the default author) and require exactly that ID
+as the only person. When ownership is empty, different, multiple, or changed,
 create a new entry. Changing authorship or editing another author's entry
 needs a precise target and the user's confirmation.
 

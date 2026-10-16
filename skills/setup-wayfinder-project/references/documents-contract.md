@@ -42,7 +42,7 @@ the body; validate Documents against it.
 
 ## Data invariants
 
-- Every Document has one `Type` and at least one direct source link in `Primary source` or `Sources`.
+- Every Document has one `Type` and at least one direct source link in `Primary source` or the body's `## Sources` section.
 - `Reviewed` changes only after the linked sources have been reopened and checked.
 - `Source date` represents source coverage, while `Reviewed` represents verification recency.
 - Updating a synthesis preserves material historical facts and all still-used source links.

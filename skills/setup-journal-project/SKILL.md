@@ -16,9 +16,13 @@ verified values substituted.
 - A Notion integration that can search, fetch, create pages and databases,
   update schemas and views, and query data sources.
 - The `uploading-photos-to-notion` skill from this repository, which the
-  printed instructions use for photo entries.
+  printed instructions use for photo entries. Install it with `npx
+  skills@latest add tlmader/skills --skill uploading-photos-to-notion`.
 
 ## 1. Resolve
+
+Verify the runtime can load `uploading-photos-to-notion`; when it cannot,
+halt and point to the install command above.
 
 Collect the project name, its canonical goal, the default author, and the
 Notion destination. Prefer a supplied URL; otherwise search for the exact page
