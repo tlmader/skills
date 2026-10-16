@@ -73,7 +73,8 @@ On a 429, stop writing and report what was applied.
 - **Preflight**: re-read the targets. Proceed only when each still matches the
   snapshot (amount, date, account, approved state, payee, category, and no
   subtransactions where you plan to add them). Drifted items drop out.
-- **Update**: one transaction per call. Send the full field set: `account_id`,
+- **Update**: one transaction per call, with the body wrapped as
+  `{"transaction": {...}}`. Send the full field set: `account_id`,
   `date`, `amount`, `memo`, `cleared`, `flag_color`, `category_id`, the payee,
   and `approved`. Omitted fields can reset. `approved` stays as it was: false
   for the unapproved transactions categorization works on. Changing an
@@ -117,8 +118,10 @@ On a 429, stop writing and report what was applied.
 - Existing splits stay as they are: the API cannot update their
   subtransactions.
 - Converting a linked transfer into a split retires the old counterpart and
-  creates a new one with a new ID. Get the user's go-ahead first, then confirm
-  the destination account holds exactly one counterpart afterwards.
+  creates a new one with a new ID. Get the user's go-ahead first. In the PUT,
+  the parent drops the transfer payee (set a plain payee or none) and the
+  principal subtransaction carries the destination's `transfer_payee_id`.
+  Afterwards, confirm the destination account holds exactly one counterpart.
 
 ## Estimates
 

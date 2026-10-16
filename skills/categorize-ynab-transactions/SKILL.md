@@ -164,15 +164,12 @@ the write set, write nothing. When only the request budget limits it, write
 the complete dependent groups that fit and report the rest as deferred to the
 next run.
 
-Prefer batch reads. Write through `using-ynab`'s procedure: one transaction
-per call with the full field set, verified before the next. A connector write
-tool may batch only when its documentation says it preserves every unsent
-field. Send `approved: false` explicitly. Stop on an inconsistent result.
-Retry once only when a read proves nothing changed and preconditions still
-hold.
+Prefer batch reads. Write and verify each transaction through `using-ynab`'s
+procedure. A connector write tool may batch only when its documentation says
+it preserves every unsent field.
 
-After writing, verify with one list read per affected account: intended
-fields, preserved fields, links, signs, totals, and `approved: false`.
+After writing, use `using-ynab`'s final list read to also check what spans
+transactions: links, signs, split totals, and counterparts.
 
 ## 4. Coverage gate and report
 

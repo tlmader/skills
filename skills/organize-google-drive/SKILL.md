@@ -29,17 +29,17 @@ Sections, in order:
   <why>)`.
 - `Shared folders`: one line per **boundary** folder, `- <name> (<folder id>) —
   top level swept: yes|no`. Other people can see a boundary folder, so moving
-  a file in shares it and moving it out revokes their access. Each run adds
-  any newly shared folder the user owns, at any depth.
+  a file in shares it and moving it out revokes their access.
 - `Inbox folders`: one line per folder, `- <name> (<folder id>)`. Their
   contents are organized like loose root files; trash a listed folder once it
   is empty and remove its line.
 - `Backlog`: specific actions the user already approved. Boundary crossings
   listed here are pre-approved.
 - `Questions`: numbered, at most 5 open. Further questions wait in a `Queued`
-  list below them and move up, oldest first, as slots free. Each run queues
-  one question about a `top level swept: no` folder: should its loose
-  top-level files be organized? The answer sets the flag.
+  list below them and move up, oldest first, as slots free. Group files that
+  share a best guess into one question. Each run queues one question about a
+  `top level swept: no` folder that has no open or queued question yet:
+  should its loose top-level files be organized? The answer sets the flag.
 - `Log`: one entry per run, newest first: a `### <start date and time, with
   timezone> — <summary>` heading,
   one or two lines of prose, then a table with columns `file id | title | old
@@ -54,10 +54,10 @@ folders` section from any folder an existing boundary rule already names.
 returns several, use the most recently modified one, and trash the others after
 this run's save succeeds.
 
-**Writing:** save once per run, at the end. Refetch `ORGANIZE.md` first and
-merge any edits the user made during the run (answers, Backlog lines, rule
-changes) into the save. Overwrite the content in place when
-the connector can. When it can only create files, create a new `ORGANIZE.md` in
+**Writing:** save at the end of each step, with that step's rows added under
+this run's log entry, so a run that fails midway still records what it did. Refetch `ORGANIZE.md` first and merge any edits the user
+made since the last read (answers, Backlog lines, rule changes) into the save.
+Overwrite the content in place when the connector can. When it can only create files, create a new `ORGANIZE.md` in
 the My Drive root as plain `text/markdown` with conversion to a Google Doc
 turned off, confirm it exists, then trash the previous copy by its ID.
 
@@ -103,7 +103,9 @@ inbox folders the survey saw.
    if not, skip the line and add a question about it. Remove each line once
    done.
 
-3. **Sweep.** Candidates are all files, not folders, the user owns that
+3. **Sweep.** First refresh `Shared folders`: add any folder the user owns,
+   at any depth, that is now shared with others, as `top level swept: no`.
+   Candidates are all files, not folders, the user owns that
    currently sit in the My Drive root, in an `Inbox folders` folder, or in the
    top level of a `Shared folders` folder marked `top level swept: yes`.
    Location decides, not dates: moving a file in Drive leaves its timestamps
@@ -125,7 +127,7 @@ inbox folders the survey saw.
 
    Done when every candidate is acted on or held.
 
-4. **Save, log, and report.** Add this run's log entry, drop log rows older
+4. **Log and report.** Complete this run's log entry, drop log rows older
    than 30 days except rows for files still sitting where they were placed in
    a swept location (those rows mark the files settled), save `ORGANIZE.md`,
    then report counts moved, renamed, trashed, and held; reversals learned
