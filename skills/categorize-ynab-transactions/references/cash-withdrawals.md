@@ -83,9 +83,8 @@ unchanged events considered for `keep`.
    represented exactly once in the fee category, separate rebates, exact parent
    and split totals, no duplicate legs, and preserved approval states. An event
    passes only with evidenced fees (evidenced zero, or inferred from the
-   amount) and every check
-   satisfied. Unknown fees or missing evidence keep it blocked, even when the
-   transfer is balanced and categoryless.
+   amount) and every check satisfied. Unknown fees or missing evidence keep it
+   blocked, even when the transfer is balanced and categoryless.
 
 ## Worked example
 
