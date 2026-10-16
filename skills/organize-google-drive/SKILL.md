@@ -84,11 +84,14 @@ run changes nothing else.
    trash state with its latest row. Fetch metadata in bulk (one listing per
    folder the rows name, plus the trash), then fetch any file missing from
    those listings by its ID: it may have moved elsewhere.
-   - A **reversal** is a file whose parent or title differs from its latest
-     row, or a file logged as `TRASH` that now exists outside the trash. A
-     file that is gone (trash emptied or purged) is not a reversal, and a later
-     row written by this skill replaces the earlier one, so the skill's own
-     moves never count.
+   - A **reversal** undoes what the rule changed: a moved file now outside
+     the folder the rule chose (and outside its subfolders), a renamed file
+     whose title the user changed back or replaced, or a file logged as
+     `TRASH` that now exists outside the trash. Filing a file deeper into the
+     chosen folder's subfolders refines the rule: settle the file with a new
+     row and add the refined rule without demoting. A file that is gone (trash
+     emptied or purged) is not a reversal, and a later row written by this
+     skill replaces the earlier one, so the skill's own moves never count.
    - Each reversal demotes the rule that caused it to `trial 0/3`, even if it
      was `confirmed`, and adds a corrected rule capturing where the user put
      the file. Mark the row `reversed: yes` and update its new parent and new

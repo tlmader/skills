@@ -81,7 +81,9 @@ Count each economic event once:
 - Exclude linked transfers, card payments, transfers into a tracked cash
   account, and reconciliation adjustments from consumption; keep supported
   fees net of rebates. A cash withdrawal categorized as an expense is
-  spending in that category.
+  spending in that category. Transfers into loan or tracking accounts (a
+  mortgage or car payment) are outflows: include them as obligations, with
+  the interest share as the cost to reduce.
 - Count splits at child level, without adding the parent again.
 - Attribute refunds to their original spending, never as lasting savings.
 - Keep cross-plan transfers and business amounts separate when purpose is

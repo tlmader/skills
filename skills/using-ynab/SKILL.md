@@ -13,10 +13,11 @@ through [YNAB's official API](https://api.ynab.com/) on an already-authorized
 
 ## Choose a route
 
-Discover the session's YNAB tools once, then take the first route available:
+Discover the session's YNAB tools once. For each operation the write set
+needs (bulk update, split PUT, delete), take the first route that supports it:
 
-1. **Connector write tool**: the YNAB connector exposes an ordinary-transaction
-   update or delete. Use it and skip the rest of this section.
+1. **Connector write tool**: the YNAB connector exposes that operation for
+   ordinary transactions, including subtransactions for a split.
 2. **Connector proxy**: the connector can make authenticated raw requests to
    `https://api.ynab.com/v1` (for example Composio's `proxy_execute(method,
    url, 'ynab', body=...)` inside its workbench, which returns `(response,
@@ -108,7 +109,8 @@ On a 429, stop writing and report what was applied.
 - Payee: pass `payee_id` to reuse a payee (take it from approved precedent for
   the same descriptor), or `payee_name` to match or create one by name.
 - Category: `category_id` from the live category list. Leave it null on
-  transfers and split parents.
+  transfers between budget accounts and on split parents; a transfer into a
+  tracking or loan account takes a category.
 - Deleting a transaction removes its amount from its account and category; a
   deleted `Inflow: Ready to Assign` line lowers Ready to Assign by that amount.
   Tell the user that effect before deleting.

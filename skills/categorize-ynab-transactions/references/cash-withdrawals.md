@@ -3,6 +3,11 @@
 Read this when an eligible item funds cash: an ATM withdrawal, a transfer into
 a cash account, or a split or fee tied to one.
 
+When the user keeps no cash account and categorizes withdrawals as spending,
+the withdrawal is an expense: it needs no counterpart, and the gate checks
+only the fee (`D = P + F`, with `P` in the user's spending category and `F` in
+the fee category).
+
 ## Foreign cash
 
 YNAB amounts stay in the budget currency even when an account holds foreign

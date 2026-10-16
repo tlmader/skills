@@ -79,7 +79,10 @@ for missing evidence, drift checks, and verification.
 
 Classify structure before purpose:
 
-- Transfer principal and card payments stay categoryless. Route every cash
+- Transfers between budget accounts, and card payments, stay categoryless. A
+  transfer from a budget account to a tracking (off-budget) or loan account,
+  such as a mortgage payment or a brokerage contribution, needs a category
+  like any outflow. Route every cash
   withdrawal, including existing linked transfers and splits, through the
   [cash withdrawal gate](references/cash-withdrawals.md) before marking it
   `keep` or categoryless. A transfer into a cash account is not income.
@@ -207,7 +210,9 @@ The run is complete only when:
   categoryless structure;
 - every `remove` item is listed with the entry it duplicates;
 - every cash withdrawal passes its gate;
-- every touched account passes the balance gate or is reported unchecked;
+- every touched account passes the balance gate, has its gap fully explained
+  by named entries (such as import lag or pending items), or is reported
+  unchecked;
 - no eligible item remains blocked or unverified; and
 - every modified item passed final verification with `approved: false`.
 
