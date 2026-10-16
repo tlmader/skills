@@ -51,7 +51,8 @@ Photo uploads support the conversation; they never hold it up.
   justification field or a short comment beside the call, so a reviewer can
   assess the transfer. This skill grants no permission of its own.
 - Fetch the exact destination page before sending any bytes, and confirm it is
-  accessible, active, and the user's.
+  accessible, active, and the destination the user or the governing
+  instructions named.
 - For a database entry, search for a matching entry before creating one, and
   reuse it on retries. A failed image never justifies a duplicate page.
 
@@ -75,8 +76,10 @@ and credentials out of chat, logs, and saved files.
 
 ### 4. Place image blocks
 
-For a new entry, upload first and create the page once with text and images in
-place, so it never exists half-written. For an existing page, refetch it and
+When this skill creates the entry itself, upload first and create the page
+once with text and images in place, so it never exists half-written. When the
+entry's text is already saved (a journal saves text first, for example), add
+the photos to that page. For an existing page, refetch it and
 its blocks immediately before writing and pick the text block each photo
 illustrates.
 
@@ -123,5 +126,6 @@ passes.
   and upload only those.
 - When an insertion's outcome is ambiguous, refetch before retrying: append
   calls are not idempotent, and blind retries duplicate images.
-- When Notion access, ownership, or transfer authority cannot be established,
+- When Notion access, the destination, or transfer authority cannot be
+  established,
   stop before sending bytes and ask for what is missing.

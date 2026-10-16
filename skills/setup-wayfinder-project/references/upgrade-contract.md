@@ -34,7 +34,7 @@ Apply these deterministic mappings:
 | Map with `Open` or `Not started` | `In progress` |
 | Ticket with `Open` | `Not started` |
 | Any Issue with `Closed` | `Done` |
-| `Not started`, `In progress`, or `Done` | unchanged |
+| Ticket with `Not started` or `In progress`, Map with `In progress`, or any Issue with `Done` | unchanged |
 
 Treat only blank or unfamiliar statuses as ambiguous. Preserve every `Assignee` independently of status; assignment never supplies evidence that work has started, and progress never supplies evidence about responsibility. Include affected linked Issue names and collect an operator decision before producing the confirmable plan.
 

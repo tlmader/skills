@@ -68,7 +68,8 @@ folders` with `top level swept: no`, add up to 5 questions, create
    trash window), skipping `HELD` rows and rows marked `reversed`, fetch the
    file's current metadata.
    - A **reversal** is a file whose parent or title differs from the latest
-     log row for that file, or a trashed file the user restored. Compare
+     log row for that file, or a trashed file the user restored. A file
+     logged as `TRASH` is reversed only when it is no longer in the trash. Compare
      against the latest row only: a later run's own move or rename of the
      file replaces the earlier row and is never a reversal. Each one demotes the rule
      that caused it to `trial 0/3`, even if it was already `confirmed`, and
@@ -103,7 +104,8 @@ folders` with `top level swept: no`, add up to 5 questions, create
      question listing them instead; answering it confirms the rule.
    - No rule, or two rules disagree → **hold**: leave the file, log it as
      `HELD`, and add a question naming it and your best guess when a slot is
-     free. Keep at most 5 open questions.
+     free. Keep at most 5 open questions. A file already held stays held
+     without a new log row, and gets a question only when it has none yet.
 
    Done when every candidate is acted on or held.
 
@@ -117,7 +119,8 @@ folders` with `top level swept: no`, add up to 5 questions, create
 
 Actions are folder creation, moves, renames, and trash only. Drive trash (recoverable for 30
 days) is the only way to remove a file, and only under a `confirmed` rule, a
-Backlog line, or for an empty folder listed under `Inbox folders`. Files stay in the user's Drive with their sharing as found. Work
+Backlog line, for an empty folder listed under `Inbox folders`, or for a
+superseded copy of `ORGANIZE.md` as the State section describes. Files stay in the user's Drive with their sharing as found. Work
 only on files the user owns.
 
 A file crossing the edge of any `Shared folders` folder, in either direction,

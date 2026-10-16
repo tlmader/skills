@@ -49,7 +49,8 @@ Each write needs the user's authorization for that kind of write. A read-only
 request stays read-only.
 
 - **Update or split**: an explicit request for the change (a categorization
-  request, for example) covers it.
+  request, for example) covers it, except converting a linked transfer into a
+  split, which needs its own go-ahead (see Splits).
 - **Delete**: list the exact transactions first (date, payee, amount, ID, and
   why each goes), and delete only that list after the user approves it.
 

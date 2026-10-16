@@ -86,8 +86,11 @@ Classify structure before purpose:
   money-market position (descriptors like "PURCHASE INTO CORE ACCOUNT",
   "REDEMPTION FROM CORE ACCOUNT", or "REINVESTMENT" of a core-fund dividend).
   The institution balance already includes the core position, so each sweep
-  duplicates money another entry records. Mark every sweep `remove`, whatever
-  its category or approval. The dividend itself stays ordinary income.
+  duplicates money another entry records. Mark every eligible sweep `remove`,
+  whatever its category. An approved sweep met during reconciliation is a
+  historical defect: report it separately, outside the eligible counts, and
+  subtract it in the balance gate too. The dividend itself stays ordinary
+  income.
 - Refunds, reversals, reimbursements, fee rebates, debt payments, matches, and
   splits keep their economic structure.
 - A suspected duplicate stays as it is until its identity is resolved; a
@@ -179,7 +182,9 @@ uncategorized query alone cannot detect omitted fees.
 For every **touched account** (one holding an eligible item or a changed
 counterpart), compare YNAB's **cleared**
 balance with the institution's **posted** balance from the snapshot, after
-subtracting cleared `remove` items still present. Uncleared YNAB entries and
+subtracting cleared `remove` items and reported approved sweeps still present.
+For credit cards and loans, the institution reports the amount owed as a
+positive number, which equals YNAB's negative balance; compare magnitudes. Uncleared YNAB entries and
 pending institution activity sit outside this comparison; list them separately
 in the report. When the institution offers only a current balance that
 includes pending activity, subtract the pending items it lists first. The
@@ -194,7 +199,7 @@ verification but does not block completion.
 
 The run is complete only when:
 
-- every ordinary eligible transaction has a category;
+- every ordinary eligible transaction not marked `remove` has a category;
 - every categoryless item is a verified transfer or other intentionally
   categoryless structure;
 - every `remove` item is listed with the entry it duplicates;
