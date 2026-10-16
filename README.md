@@ -21,7 +21,7 @@ and the settings you can give it.
 
 | Skill | What it does | Needs |
 | --- | --- | --- |
-| [`categorize-ynab-transactions`](skills/categorize-ynab-transactions/SKILL.md) | Categorize unapproved YNAB transactions and verify full coverage without approving anything | YNAB; for writes, a YNAB write tool or `using-ynab` |
+| [`categorize-ynab-transactions`](skills/categorize-ynab-transactions/SKILL.md) | Categorize unapproved YNAB transactions and verify full coverage without approving anything | YNAB; `using-ynab` for writes |
 | [`using-ynab`](skills/using-ynab/SKILL.md) | Update, split, or delete YNAB transactions through the official API | YNAB |
 | [`find-savings`](skills/find-savings/SKILL.md) | Find and track ranked savings on bills, subscriptions, and spending | Transaction data, web |
 | [`organize-google-drive`](skills/organize-google-drive/SKILL.md) | Organize Drive with a rulebook that learns from your corrections | Google Drive |
