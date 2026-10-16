@@ -51,7 +51,7 @@ Sections, in order:
   held files put `HELD` there. `reversed` is empty until a reversal is
   learned, then `yes`.
 - `Placed`: file IDs this skill moved out of a swept location whose log rows
-  were pruned, one per line with the rule that moved them.
+  were pruned, one per line with the rule and date that moved them.
 
 A file's **latest row** is its newest row across all entries. When a section
 is missing, add it on this run's save.
@@ -102,10 +102,15 @@ run changes nothing else.
      the previous run and none of its rows are reversed; at `3/3` it becomes
      `confirmed`. A rule needs three runs without a correction to be
      confirmed.
-   - Each answered question becomes a `confirmed` rule, plus Backlog lines for
-     any specific files it names; delete the question. An answer to a
-     top-level question about a boundary sets its `top level swept` flag. An
-     answer counts whether the user wrote it under the question in
+   - Convert each answered question by its kind, then delete it:
+     - a proposed rule (an unmatched file's best guess, a trial trash rule):
+       the answer becomes a `confirmed` rule, plus Backlog lines for the files
+       it names;
+     - a single move (a boundary crossing, a file missing from a Backlog
+       line's expected place): a yes becomes a Backlog line, never a rule;
+     - a boundary's top level: the answer sets its `top level swept` flag.
+
+     An answer counts whether the user wrote it under the question in
      `ORGANIZE.md` or gave it in this session.
 
    Done when every row is checked and every answered question is converted.
@@ -146,13 +151,13 @@ run changes nothing else.
 4. **Prune and report.** Drop log rows older than 30 days unless they are the
    latest row of a file that still sits in the root, an inbox folder, or a
    swept boundary's top level (those rows keep it settled or held). For each
-   dropped row of a file this skill moved out of a swept location, add `-
-   <file id> (<rule>)` to a `Placed` section. Save, then
-   report counts moved, renamed, trashed, and held; reversals learned from;
-   the open questions, which the user can answer in chat; and a link to
-   `ORGANIZE.md`. In a scheduled run, notify
-   the user only when something changed or a new question needs them; a run
-   with no actions and no new questions stays silent.
+   dropped row of a file this skill moved out of a swept location, add a line
+   `<file id> (<rule>, <date>)` to `Placed`. Drop `Placed` lines older than
+   180 days. Save, then report counts moved, renamed, trashed, and held;
+   reversals learned from; the open questions, which the user can answer in
+   chat; and a link to `ORGANIZE.md`. In a scheduled run, notify the user only
+   when something changed or a new question needs them; a run with no actions
+   and no new questions stays silent.
 
 ## Guardrails
 
