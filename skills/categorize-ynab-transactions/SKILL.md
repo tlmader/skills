@@ -183,8 +183,11 @@ For every **touched account** (one holding an eligible item or a changed
 counterpart), compare YNAB's **cleared**
 balance with the institution's **posted** balance from the snapshot, after
 subtracting cleared `remove` items and reported approved sweeps still present.
-For credit cards and loans, the institution reports the amount owed as a
-positive number, which equals YNAB's negative balance; compare magnitudes. Uncleared YNAB entries and
+For credit cards and loans, the institution usually reports the amount owed
+as a positive number: require YNAB's balance to equal its negation, sign
+included, so a card in credit still matches only a positive YNAB balance. For
+an investment account, compare cash only; when YNAB tracks its market value,
+report it unchecked. Uncleared YNAB entries and
 pending institution activity sit outside this comparison; list them separately
 in the report. When the institution offers only a current balance that
 includes pending activity, subtract the pending items it lists first. The

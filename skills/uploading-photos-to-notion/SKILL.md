@@ -35,8 +35,8 @@ Photo uploads support the conversation; they never hold it up.
   instructions say to mention the work only when useful. Always report
   failures and photos still pending.
 - Authority checks, original-byte preservation, and verification apply in the
-  background too. When a step needs the user's confirmation, finish everything
-  else first and ask once at the end.
+  background too. Settle any confirmation about the destination before
+  uploading: an unattached upload expires after about an hour.
 
 ## Workflow
 
@@ -62,6 +62,8 @@ Photo uploads support the conversation; they never hold it up.
   orientation; the bytes stay as they are.
 - Check each file's MIME type, extension, and size against the workspace's
   upload limit, and record each original's byte size for verification.
+  Files over 20 MB need a multi-part upload; use it where the route supports
+  it, and otherwise report the photo as too large for that route.
 - Use one Notion file upload per photo.
 - Chat attachment URLs, signed URLs, `sandbox:` paths, Drive links, and earlier
   Notion signed URLs are transport inputs for reading bytes, never the final
@@ -70,7 +72,9 @@ Photo uploads support the conversation; they never hold it up.
 ### 3. Upload
 
 Follow [upload routes](references/upload-routes.md) for the route available.
-Send all of an entry's photos together. An upload is done when Notion reports
+Send all of an entry's photos together. When placement is delayed past an
+upload's expiry, recreate it from the original before placing it. An upload is
+done when Notion reports
 `status: "uploaded"` with a byte length equal to the original's. Keep base64
 and credentials out of chat, logs, and saved files.
 

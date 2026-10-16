@@ -21,7 +21,8 @@ authorized destination whichever route you take.
 Discover the page, block, file-upload, and append tools first, keep the
 returned session ID, and confirm an active Notion connection.
 
-1. Call `NOTION_CREATE_FILE_UPLOAD` with `mode: "single_part"`, the original
+1. Call `NOTION_CREATE_FILE_UPLOAD` with `mode: "single_part"` (files up to
+   20 MB; larger files need a multi-part route), the original
    filename, and the MIME type. Capture the upload ID and expiry.
 2. Read the local file and base64-encode it inside the tool orchestration.
 3. Call `NOTION_SEND_FILE_UPLOAD` with the upload ID, filename, MIME type, and
@@ -39,7 +40,10 @@ With an integration token the user placed in the environment (for example
 `NOTION_TOKEN`), follow Notion's
 [file upload guide](https://developers.notion.com/docs/working-with-files-and-media):
 `POST /v1/file_uploads`, then `POST /v1/file_uploads/{id}/send` with the file
-as multipart form data, and require `status: "uploaded"`.
+as multipart form data, and require `status: "uploaded"`. For files over 20
+MB, create the upload with `mode: "multi_part"` and `number_of_parts`, send
+each part (10 MB recommended) with its
+`part_number`, then `POST /v1/file_uploads/{id}/complete`.
 
 ## Placing the uploads
 

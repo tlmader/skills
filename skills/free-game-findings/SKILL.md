@@ -49,8 +49,9 @@ Read these from the request or the project's instructions:
    report failure if completeness is still uncertain. An incomplete scan
    leaves history untouched.
 
-3. **Queue offers.** Compare discovery names after trimming, collapsing
-   whitespace, and case-folding; keep displayed names for the report. Track
+3. **Queue offers.** Key discoveries by store plus name, comparing names after
+   trimming, collapsing whitespace, and case-folding, so the same game on a
+   new store is a new discovery; keep displayed names for the report. Track
    ownership separately per store, account, and product ID or canonical URL
    (store plus normalized name only as a fallback). Queue every live eligible
    offer without verified ownership, including ones reported or blocked before.

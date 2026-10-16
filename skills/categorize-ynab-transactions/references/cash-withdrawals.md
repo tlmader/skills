@@ -6,9 +6,12 @@ a cash account, or a split or fee tied to one.
 ## Foreign cash
 
 YNAB amounts stay in the budget currency even when an account holds foreign
-cash. Use the original foreign amount, the local date, and that date's
-authoritative mid-market rate; round the budget-currency value to cents and
-record the rate's direction and source.
+cash. The principal is what the bank actually charged for the cash: the debit
+minus its evidenced included fees. Record the foreign amount, the local date,
+and the implied rate (principal ÷ foreign amount). The card network's
+conversion markup is part of the principal, never a fee. Use a mid-market rate
+only to estimate a withdrawal whose bank debit has not posted, and label the
+estimate.
 
 ## The gate
 
@@ -46,8 +49,9 @@ unchanged events considered for `keep`.
    Separately posted fees are separate negative fee-category entries matched to
    their own bank debits and excluded from `F`. Positive fee rebates stay
    separate in the fee category; they neither raise the principal nor erase
-   the original fee. An unexplained conversion residual blocks the event; it
-   is never relabeled as a fee to force equality.
+   the original fee. When a receipt states the principal in budget currency
+   and `D - F` differs from it, that residual blocks the event; it is never
+   relabeled as a fee to force equality.
 4. **Preflight the whole event.** Keep the authoritative bank debit and
    unrelated data. When YNAB's parent amount differs from the bank evidence,
    report the discrepancy and get the structural-change authorization the

@@ -32,7 +32,7 @@ defaults:
 | Reporting currency | The plan's currency |
 | Priority threshold | 5/month recurring or 25 one-time, in the reporting currency |
 | Analysis cadence and delivery cadence | One run, reported in chat |
-| Where findings persist | The current chat or run context |
+| Where findings persist | The current chat for one-off runs; a durable store the user names (memory, a file, or a tracker) for scheduled runs |
 
 Other plans and tracking or closed accounts need their own authorization. The
 threshold orders the report; smaller effortless savings still appear.
@@ -49,7 +49,9 @@ condition. One rejected offer leaves the rest of its category open. Silence is
 neither acceptance nor rejection. Label each preference inferred or confirmed.
 
 Recover earlier findings and decisions from the conversation or run context.
-Scratch files last one run. When earlier findings cannot be recovered, say so
+Scratch files last one run. A scheduled run that starts fresh each time needs
+the durable store from the configuration to remember decisions; without one,
+ask once to set it up. When earlier findings cannot be recovered, say so
 in the next report, rebuild from source data, and present re-found items
 without claiming they are new. Create trackers or persistent files only when
 the user asks. The skill itself never stores personal financial history.

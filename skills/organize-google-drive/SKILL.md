@@ -36,7 +36,8 @@ Sections, in order:
 - `Backlog`: specific actions the user already approved. Boundary crossings
   listed here are pre-approved.
 - `Questions`: numbered, at most 5 open.
-- `Log`: one entry per run, newest first: a `### <date> — <summary>` heading,
+- `Log`: one entry per run, newest first: a `### <start date and time, with
+  timezone> — <summary>` heading,
   one or two lines of prose, then a table with columns `file id | title | old
   parent | new parent | old title | new title | rule | reversed`. Trash
   actions put `TRASH` in the new parent column, and held files put `HELD`
@@ -69,7 +70,8 @@ folders` with `top level swept: no`, add up to 5 questions, create
    file's current metadata.
    - A **reversal** is a file whose parent or title differs from the latest
      log row for that file, or a trashed file the user restored. A file
-     logged as `TRASH` is reversed only when it is no longer in the trash. Compare
+     logged as `TRASH` is reversed only when it still exists outside the
+     trash; one that is gone (emptied or purged) is not a reversal. Compare
      against the latest row only: a later run's own move or rename of the
      file replaces the earlier row and is never a reversal. Each one demotes the rule
      that caused it to `trial 0/3`, even if it was already `confirmed`, and
@@ -93,14 +95,15 @@ folders` with `top level swept: no`, add up to 5 questions, create
    done.
 
 3. **Sweep.** Candidates are files the user owns, created or modified since the
-   last run, that sit in the My Drive root, in an `Inbox folders` folder, or in
+   last run's start time, that sit in the My Drive root, in an `Inbox folders` folder, or in
    the top level of a `Shared folders` folder marked `top level swept: yes`,
    plus every file whose latest log row is `HELD` and that has not moved.
    `ORGANIZE.md` is never a candidate. Read a file's content whenever its title
    alone cannot place it.
    - Matches a `confirmed` rule → apply it.
    - Matches a `trial` rule → apply it to at most 3 files per rule per run.
-     A `trial` rule whose action is trash holds its files and asks one
+     Files over the cap are logged `HELD` with the rule's name and retried
+     next run. A `trial` rule whose action is trash holds its files and asks one
      question listing them instead; answering it confirms the rule.
    - No rule, or two rules disagree → **hold**: leave the file, log it as
      `HELD`, and add a question naming it and your best guess when a slot is
