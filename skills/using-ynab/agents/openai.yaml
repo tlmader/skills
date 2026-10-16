@@ -1,0 +1,12 @@
+interface:
+  display_name: Using YNAB
+  short_description: Update, split, or delete YNAB transactions through the official API
+  default_prompt: Use $using-ynab to apply these approved YNAB transaction changes
+    and verify each one.
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

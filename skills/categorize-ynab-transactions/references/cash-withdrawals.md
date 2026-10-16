@@ -1,0 +1,114 @@
+# Cash withdrawal gate
+
+Read this when an eligible item funds cash: an ATM withdrawal, a transfer into
+a cash account, or a split or fee tied to one.
+
+When the user keeps no cash account and categorizes withdrawals as spending,
+the withdrawal is an expense: it needs no counterpart, and the gate checks
+only the fee (`D = P + F`, with `P` in the user's spending category and `F` in
+the fee category).
+
+## Foreign cash
+
+YNAB amounts stay in the budget currency even when an account holds foreign
+cash. The principal is what the bank actually charged for the cash: the debit
+minus its evidenced included fees. Record the foreign amount, the local date,
+and the implied rate (principal ÷ foreign amount). The card network's
+conversion markup is part of the principal, never a fee. Use a mid-market rate
+only to estimate a withdrawal whose bank debit has not posted, and label the
+estimate.
+
+## The gate
+
+Treat each withdrawal as one economic **event**: the funding debit, the linked
+cash principal, fee splits or separate fee entries, and any rebate. Apply the
+gate before and after any direction, amount, payee, or category repair, and to
+unchanged events considered for `keep`.
+
+1. **Gather evidence.** Establish the cash received, local date, conversion
+   rate and source, actual bank debit, and itemized fees from receipts, issuer
+   activity, statements, exports, or other direct evidence. Reuse evidence
+   already in hand before asking for more. Record the fee status as evidenced
+   positive, evidenced zero, or unknown:
+   - **Same currency**: the statement or issuer activity is the evidence. A
+     debit that is a multiple of the smallest note ATMs dispense in that
+     currency (20.00 for most US ATMs), with no fee line for it, has an
+     evidenced zero fee, and the debit is the cash withdrawn. Any other
+     debit, like 43.00 or 103.50, has a surcharge folded in: read the cash
+     withdrawn as the largest such multiple below the debit (40.00, 100.00)
+     and the fee as the remainder (3.00, 3.50), record the fee as **inferred
+     from the amount**, and let the event pass, reported as inferred. A
+     receipt or itemized statement overrides the inference.
+   - **Foreign currency**: a missing fee line, a matching transfer pair, a
+     typical ATM fee, or an exchange-rate residual establishes neither zero
+     nor an amount; the fee needs a receipt or an itemized statement.
+
+   A rebate alone proves neither the original charge nor which withdrawal it
+   belongs to. A best-guess estimate the user explicitly asked for, written
+   with an `Est.` memo (see `using-ynab`), counts as the user's evidence: the
+   event can pass, reported as passed on an estimate.
+2. **Resolve existing entries.** Read both transfer sides and every split,
+   including approved counterparts as read-only evidence. Match references,
+   dates, amounts, accounts, and descriptors; inspect nearby separately posted
+   fees and rebates, duplicates, and sweeps (a same-day core redemption equal
+   to the debit is a sweep, not a second inflow). Repair an existing event in
+   place, keeping IDs and links wherever the API allows; an existing
+   counterpart is expected. Adding an included-fee split to a linked transfer
+   and editing an existing split follow `using-ynab`'s Splits rules; an event
+   whose fix those rules forbid is blocked. Create a missing leg only after
+   confirming it is absent and how the API creates counterparts. Unresolved
+   duplicates block the event.
+3. **Reconcile amounts.** Let `P` be the evidenced cash principal in budget
+   currency, `F` the fees included in the withdrawal debit, and `D` that
+   debit's magnitude. Require `D = P + F` exactly in integer milliunits after
+   cent rounding. The funding principal is `-P`; the cash counterpart is `+P`.
+   Included fees are negative splits in the fee category on the funding debit.
+   Separately posted fees are separate negative fee-category entries matched to
+   their own bank debits and excluded from `F`. Positive fee rebates stay
+   separate in the fee category; they neither raise the principal nor erase
+   the original fee. When a receipt states the principal in budget currency
+   and `D - F` differs from it, that residual blocks the event; it is never
+   relabeled as a fee to force equality.
+4. **Preflight the whole event.** Keep the authoritative bank debit and
+   unrelated data. When YNAB's parent amount differs from the bank evidence,
+   report the discrepancy and get the structural-change authorization the
+   project requires before changing it. When a repair would touch an approved
+   or reconciled entry, a protected link, or an unsupported split, report the
+   event as blocked; ordinary categorization authority leaves approved history
+   alone. A blocked event gets no partial direction-only or fee-only repair.
+5. **Verify the result.** Re-read all affected entries and compare them with
+   the source evidence, not only with the fields you proposed. Check equal and
+   opposite principal, correct accounts and links (exactly one counterpart,
+   under its new ID after a split conversion), every evidenced fee
+   represented exactly once in the fee category, separate rebates, exact parent
+   and split totals, no duplicate legs, and preserved approval states. An event
+   passes when every check is satisfied and its fee status is one step 1
+   allows: evidenced positive, evidenced zero, inferred from the amount, or a
+   user-requested estimate. Unknown fees or missing evidence keep it
+   blocked, even when the transfer is balanced and categoryless.
+
+## Worked example
+
+A bank debit of 210.00 with evidenced principal 200.00 and an included fee of
+10.00 needs:
+
+| Entry | Amount (milliunits) |
+| --- | --- |
+| Funding parent | -210000 |
+| Principal split (transfer to cash) | -200000 |
+| Fee split | -10000 |
+| Cash counterpart | +200000 |
+
+A transfer of the gross 210.00 overstates cash; a funding parent of only 200.00
+understates the bank debit. A later 10.00 fee rebate stays a separate positive
+fee-category entry.
+
+## Scope and report
+
+Review approved counterparts only as eligible events require; an ordinary run
+is not an audit of every historical transfer. Report historical defects you
+find separately, without changing them or counting them as eligible inputs.
+
+For each event, report the bank debit, cash principal, included and separately
+posted fees, rebates, evidence sources, and the gate result (passed or
+blocked).

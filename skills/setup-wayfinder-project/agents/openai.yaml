@@ -1,0 +1,14 @@
+interface:
+  display_name: Setup Wayfinder Project
+  short_description: Set up Wayfinder issues and project documents
+  default_prompt: Use $setup-wayfinder-project to set up or upgrade this project's
+    Notion Issues and Documents databases and print its agent instructions.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: false

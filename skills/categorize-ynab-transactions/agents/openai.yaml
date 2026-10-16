@@ -1,0 +1,15 @@
+interface:
+  display_name: Categorize YNAB Transactions
+  short_description: Auto-categorize YNAB imports without approving them
+  default_prompt: Use $categorize-ynab-transactions to automatically update unapproved
+    transactions in the applicable YNAB plan, research uncertain vendors, skip unresolved
+    items, and verify that every modified transaction remains unapproved.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
