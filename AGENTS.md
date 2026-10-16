@@ -5,7 +5,11 @@
 This repository is a personal collection of agent skills for Claude Code and
 Codex.
 
-- `skills/<name>/SKILL.md`: repository-owned skills, one folder per skill
+- `plugins/tlmader/skills/<name>/SKILL.md`: repository-owned skills, one
+  folder per skill, shipped in the `tlmader` plugin
+- `plugins/tlmader/.claude-plugin/plugin.json` and
+  `.claude-plugin/marketplace.json`: the Claude Code plugin and the
+  marketplace that lists it
 - `.agents/skills/<name>/`: committed project-local third-party skills, restored
   by `pnpm skills:install` from `skills-lock.json`
 - `.claude/skills/<name>`: committed relative symlinks into
@@ -60,7 +64,7 @@ lazily when useful. See `docs/agents/domain.md`.
 - `pnpm commit`: create a guided conventional commit with issue tagging
 - `pnpm exec commitlint --edit <path>`: validate commit messages manually
 - `pnpm lint:md`: lint all Markdown files with `markdownlint-cli2`
-- `find skills -mindepth 2 -maxdepth 2 -name SKILL.md | sort`: list skill entry
+- `find plugins/tlmader/skills -mindepth 2 -maxdepth 2 -name SKILL.md | sort`: list skill entry
   points
 
 ## Coding Style & Naming Conventions
@@ -73,7 +77,7 @@ lazily when useful. See `docs/agents/domain.md`.
 
 ## Working on skills
 
-When creating or editing a skill under `skills/`, review it with the
+When creating or editing a skill under `plugins/tlmader/skills/`, review it with the
 `writing-for-agents` skill for trigger descriptions, a concise `SKILL.md`, and
 when to split reference material into separate files. Install it if missing:
 
@@ -98,7 +102,7 @@ break. Links to files bundled inside the same skill are fine.
 
 ## Commit type selection
 
-Product files in this repository are `skills/**`, `.agents/skills/**`,
+Product files in this repository are `plugins/**`, `.agents/skills/**`,
 `.claude/skills/**`, `skills-lock.json`, and `scripts/**`. Choose the commit
 type from the changed paths and the behavior they change, not from file
 extensions.
@@ -120,7 +124,7 @@ extensions.
 | "It touches config, so it's `chore:`." | `skills-lock.json` changes which skills are installed. That is `feat:` or `fix:`. |
 
 Stop and re-check the type when a `docs:` or `chore:` commit touches
-`skills/**`, `.agents/skills/**`, or `skills-lock.json`.
+`plugins/**`, `.agents/skills/**`, or `skills-lock.json`.
 
 WRONG: `docs: #12 tighten the weekly-review trigger description`
 

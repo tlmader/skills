@@ -1,0 +1,17 @@
+{
+  "name": "tlmader-skills",
+  "owner": {
+    "name": "tlmader",
+    "url": "https://github.com/tlmader"
+  },
+  "metadata": {
+    "description": "Personal collection of agent skills for Claude Code and Codex"
+  },
+  "plugins": [
+    {
+      "name": "tlmader",
+      "description": "Budgeting with YNAB, savings research, Google Drive organizing, free game giveaways, and Notion journals and trackers",
+      "source": "./plugins/tlmader"
+    }
+  ]
+}

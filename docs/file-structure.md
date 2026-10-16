@@ -6,7 +6,9 @@ This document describes the layout of `tlmader/skills`.
 
 | Path | Purpose |
 | --- | --- |
-| `skills/<name>/` | Repository-owned skills. Each folder holds a `SKILL.md` whose frontmatter `name:` matches the folder name. |
+| `.claude-plugin/marketplace.json` | Claude Code marketplace manifest. It lists the `tlmader` plugin. |
+| `plugins/tlmader/.claude-plugin/plugin.json` | The `tlmader` plugin's manifest. |
+| `plugins/tlmader/skills/<name>/` | Repository-owned skills, shipped in the `tlmader` plugin. Each folder holds a `SKILL.md` whose frontmatter `name:` matches the folder name. |
 | `.agents/skills/<name>/` | Committed project-local third-party skills, restored with `pnpm skills:install`. |
 | `.claude/skills/<name>` | Committed relative symlinks into `../../.agents/skills/<name>` for Claude Code. |
 | `.claude/settings.json` | Claude Code project settings. Its `SessionStart` hook runs `scripts/worktree-setup.sh`. |
@@ -27,13 +29,16 @@ This document describes the layout of `tlmader/skills`.
 ## Skill layout
 
 ```text
-skills/
+plugins/tlmader/skills/
 └── <name>/
     ├── SKILL.md
     ├── references/       # material only some runs need, linked from SKILL.md
     ├── assets/           # templates and icons
     └── agents/openai.yaml  # optional Codex and ChatGPT display metadata
 ```
+
+The plugin lives in its own folder so installing it ships only the skills, not
+this repository's development settings such as `.mcp.json`.
 
 Keep `SKILL.md` concise and move material that only some branches need into
 `references/`, linked from the step that needs it. A skill names the

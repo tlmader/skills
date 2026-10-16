@@ -4,7 +4,15 @@ Personal collection of agent skills for Claude Code and Codex.
 
 ## Install
 
-Install a skill from this repository with the
+In Claude Code, add this repository as a plugin marketplace and install the
+`tlmader` plugin, which carries every skill below:
+
+```text
+/plugin marketplace add tlmader/skills
+/plugin install tlmader@tlmader-skills
+```
+
+Or install individual skills for any agent with the
 [skills CLI](https://github.com/vercel-labs/skills):
 
 ```sh
@@ -16,19 +24,19 @@ interactively.
 
 ## Skills
 
-Each skill lives in `skills/<name>/SKILL.md` and lists the connectors it needs
+Each skill lives in `plugins/tlmader/skills/<name>/SKILL.md` and lists the connectors it needs
 and the settings you can give it.
 
 | Skill | What it does | Needs |
 | --- | --- | --- |
-| [`categorize-ynab-transactions`](skills/categorize-ynab-transactions/SKILL.md) | Categorize unapproved YNAB transactions and verify full coverage without approving anything | YNAB; `using-ynab` for writes |
-| [`using-ynab`](skills/using-ynab/SKILL.md) | Update, split, or delete YNAB transactions through the official API | YNAB |
-| [`find-savings`](skills/find-savings/SKILL.md) | Find and track ranked savings on bills, subscriptions, and spending | Transaction data, web |
-| [`organize-google-drive`](skills/organize-google-drive/SKILL.md) | Organize Drive with a rulebook that learns from your corrections | Google Drive |
-| [`free-game-findings`](skills/free-game-findings/SKILL.md) | Find and claim free-to-keep game giveaways | Web, browser |
-| [`uploading-photos-to-notion`](skills/uploading-photos-to-notion/SKILL.md) | Upload photos to Notion as durable images beside their text | Notion |
-| [`setup-journal-project`](skills/setup-journal-project/SKILL.md) | Set up a Notion journal and the instructions that keep it | Notion, `uploading-photos-to-notion` |
-| [`setup-wayfinder-project`](skills/setup-wayfinder-project/SKILL.md) | Set up a Wayfinder tracker and documents store in Notion | Notion, [mattpocock/skills](https://github.com/mattpocock/skills) |
+| [`categorize-ynab-transactions`](plugins/tlmader/skills/categorize-ynab-transactions/SKILL.md) | Categorize unapproved YNAB transactions and verify full coverage without approving anything | YNAB; `using-ynab` for writes |
+| [`using-ynab`](plugins/tlmader/skills/using-ynab/SKILL.md) | Update, split, or delete YNAB transactions through the official API | YNAB |
+| [`find-savings`](plugins/tlmader/skills/find-savings/SKILL.md) | Find and track ranked savings on bills, subscriptions, and spending | Transaction data, web |
+| [`organize-google-drive`](plugins/tlmader/skills/organize-google-drive/SKILL.md) | Organize Drive with a rulebook that learns from your corrections | Google Drive |
+| [`free-game-findings`](plugins/tlmader/skills/free-game-findings/SKILL.md) | Find and claim free-to-keep game giveaways | Web, browser |
+| [`uploading-photos-to-notion`](plugins/tlmader/skills/uploading-photos-to-notion/SKILL.md) | Upload photos to Notion as durable images beside their text | Notion |
+| [`setup-journal-project`](plugins/tlmader/skills/setup-journal-project/SKILL.md) | Set up a Notion journal and the instructions that keep it | Notion, `uploading-photos-to-notion` |
+| [`setup-wayfinder-project`](plugins/tlmader/skills/setup-wayfinder-project/SKILL.md) | Set up a Wayfinder tracker and documents store in Notion | Notion, [mattpocock/skills](https://github.com/mattpocock/skills) |
 
 `setup-journal-project` and `setup-wayfinder-project` run only when you invoke
 them by name.

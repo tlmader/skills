@@ -1,0 +1,21 @@
+{
+  "name": "tlmader",
+  "displayName": "tlmader skills",
+  "version": "0.1.0",
+  "description": "Budgeting with YNAB, savings research, Google Drive organizing, free game giveaways, and Notion journals and trackers.",
+  "author": {
+    "name": "tlmader",
+    "url": "https://github.com/tlmader"
+  },
+  "homepage": "https://github.com/tlmader/skills",
+  "repository": "https://github.com/tlmader/skills",
+  "license": "MIT",
+  "keywords": [
+    "ynab",
+    "budgeting",
+    "google-drive",
+    "notion",
+    "journal",
+    "games"
+  ]
+}
