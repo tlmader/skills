@@ -29,7 +29,8 @@ Sections, in order:
   <why>)`.
 - `Shared folders`: one line per **boundary** folder, `- <name> (<folder id>) —
   top level swept: yes|no`. Other people can see a boundary folder, so moving
-  a file in shares it and moving it out revokes their access.
+  a file in shares it and moving it out revokes their access. Each run adds
+  any newly shared folder the user owns, at any depth.
 - `Inbox folders`: one line per folder, `- <name> (<folder id>)`. Their
   contents are organized like loose root files; trash a listed folder once it
   is empty and remove its line.
@@ -52,7 +53,9 @@ folders` section from any folder an existing boundary rule already names.
 returns several, use the most recently modified one, and trash the others after
 this run's save succeeds.
 
-**Writing:** save once per run, at the end. Overwrite the content in place when
+**Writing:** save once per run, at the end. Refetch `ORGANIZE.md` first and
+merge any edits the user made during the run (answers, Backlog lines, rule
+changes) into the save. Overwrite the content in place when
 the connector can. When it can only create files, create a new `ORGANIZE.md` in
 the My Drive root as plain `text/markdown` with conversion to a Google Doc
 turned off, confirm it exists, then trash the previous copy by its ID.
@@ -60,7 +63,8 @@ turned off, confirm it exists, then trash the previous copy by its ID.
 ### First run
 
 When no `ORGANIZE.md` exists: survey My Drive (top-level folders, naming
-habits, what sits loose in root, which top-level folders are shared), write
+habits, what sits loose in root, and every folder the user owns that is
+shared with others, at any depth), write
 what you observe as `trial` rules, list the shared folders under `Shared
 folders` with `top level swept: no`, add up to 5 questions, write a log entry
 with the survey summary and no rows, create `ORGANIZE.md`, and end with the
@@ -102,7 +106,8 @@ inbox folders the survey saw.
    currently sit in the My Drive root, in an `Inbox folders` folder, or in the
    top level of a `Shared folders` folder marked `top level swept: yes`.
    Location decides, not dates: moving a file in Drive leaves its timestamps
-   unchanged. A folder moves only under a Backlog line or a rule that names
+   unchanged. A file this skill already placed where it now sits, with its
+   logged title and no reversal, is settled and not a candidate. A folder moves only under a Backlog line or a rule that names
    it.
    `ORGANIZE.md` is never a candidate. Read a file's content whenever its title
    alone cannot place it.

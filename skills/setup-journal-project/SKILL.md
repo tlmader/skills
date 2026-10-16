@@ -41,7 +41,9 @@ Structural changes need an explicit setup, upgrade, or migration request.
 
 For a new setup:
 
-- Add `## Goal` and the canonical goal to the project page.
+- Add `## Goal` and the canonical goal to the project page. When the page
+  already has a Goal that differs from the one the user gave, ask which is
+  canonical and keep a single `## Goal` section.
 - Create one empty database named `Journal` inside it.
 - Create only `Name` (title), `Date` (date), and `Author` (rich text).
 - Configure an `Entries` table view showing `Name`, `Date`, and `Author`,

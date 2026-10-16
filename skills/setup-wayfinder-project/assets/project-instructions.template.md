@@ -62,7 +62,7 @@ Size one Ticket for one agent session. Create all Tickets first, then wire `Bloc
 ### Wayfinding operations
 
 - **Load a Map:** Read the Map body for Destination, Notes, Decisions so far, fog, and scope. Load Ticket bodies and page-level comments only as needed.
-- **Choose the next Ticket:** Unless the user named a Ticket, query non-Map child Tickets with `Status = Not started` in `Created` order. Prefer Tickets assigned to the responsible operator or with no assignee; leave Tickets assigned to someone else alone. Follow each Ticket's `Blocked by` relations and take the first Ticket whose blockers are all `Done`. Paginate until one qualifies or every candidate has been checked.
+- **Choose the next Ticket:** Unless the user named a Ticket, query non-Map child Tickets with `Status = Not started` in `Created` ascending order (oldest first). Prefer Tickets assigned to the responsible operator or with no assignee; leave Tickets assigned to someone else alone. Follow each Ticket's `Blocked by` relations and take the first Ticket whose blockers are all `Done`. Paginate until one qualifies or every candidate has been checked.
 - **Start:** Refetch the Ticket, confirm `Status = Not started`, then set `Status = In progress` as the session's first write. Preserve `Assignee`; starting work never assigns it, and assignment never starts work.
 - **Resolve:** Refetch the Ticket and Map, add the answer as a page-level resolution comment, set `Status = Done`, then append a linked one-line gist to the Map's `Decisions so far` without replacing other sections.
 - **Advance the Map:** Add newly visible Tickets; graduate newly precise fog into Tickets; remove each graduated item from `Not yet specified`; wire dependencies after creation.

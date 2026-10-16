@@ -99,8 +99,9 @@ table:
 | --- | --- | --- | --- | --- |
 ```
 
-Outcomes are `found` (claim not attempted), `already owned`, `claimed`, and
-`blocked`. Include unresolved pending claims even when discovered earlier.
+Outcomes are `found` (claim not attempted), `pending` (an unredeemed key or a
+retryable claim), `already owned`, `claimed`, and `blocked`. Include
+unresolved pending claims even when discovered earlier.
 State whether the scan was complete and name any history, claim, persistence,
 or journal failures. Say "No new giveaways available" only after a complete
 scan with no new discoveries, and list pending claims or failures separately.

@@ -67,12 +67,15 @@ only the approved writes and their verification.
   subtransactions where you plan to add them). Drifted items drop out.
 - **Update**: one transaction per call. Send the full field set: `account_id`,
   `date`, `amount`, `memo`, `cleared`, `flag_color`, `category_id`, the payee,
-  and `approved: false`. Omitted fields can reset.
+  and `approved`. Omitted fields can reset. `approved` stays as it was: false
+  for the unapproved transactions categorization works on. Changing an
+  approved transaction needs an explicit request naming it, and keeps it
+  approved.
 - **Delete**: one transaction per call, only IDs on the approved list.
 - **Verify**: GET straight after each write. For an update, confirm every field
   you meant to change (category, payee, memo, subtransactions) holds the new
   value, every field you meant to preserve (account, date, amount, cleared,
-  flag, `import_id`) is unchanged, and `approved` is false. For a delete,
+  flag, `import_id`, `approved`) is unchanged. For a delete,
   accept either a 404 `resource_not_found` or the transaction returned with
   `deleted: true`. Stop on any mismatch.
 - **Balance**: after writes that change an account's total, GET the account and

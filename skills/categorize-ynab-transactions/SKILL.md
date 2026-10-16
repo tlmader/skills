@@ -19,7 +19,8 @@ partial work.
 - **YNAB read access** through any connector or the official API.
 - **Ordinary transaction writes** for write runs: a connector write tool, or the
   `using-ynab` skill from this repository, which writes through the official
-  API.
+  API (`npx skills@latest add tlmader/skills --skill using-ynab`). A write run
+  with neither halts before writing and says which to add.
 - Optional evidence sources: a bank or brokerage connector for institution
   balances, a card-activity connector with merchant metadata (statement
   descriptors, MCCs), receipts, statements, and web search.
