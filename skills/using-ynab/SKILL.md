@@ -38,6 +38,7 @@ Endpoints, relative to `https://api.ynab.com/v1`:
 | Categories | `GET /budgets/{budget_id}/categories` |
 | Unapproved or uncategorized transactions | `GET /budgets/{budget_id}/transactions?type=unapproved` (or `uncategorized`) |
 | An account's transactions (counterparts) | `GET /budgets/{budget_id}/accounts/{account_id}/transactions` |
+| Update many transactions | `PATCH /budgets/{budget_id}/transactions` |
 | Read, update, or delete one transaction | `GET\|PUT\|DELETE /budgets/{budget_id}/transactions/{transaction_id}` |
 
 `budget_id` is the live budget UUID from `GET /budgets`. After the run, tell
@@ -65,24 +66,28 @@ only the approved writes and their verification.
 YNAB allows 200 API requests per hour per token. Budget them before writing:
 preflight and final verification each use one list read
 (`?type=unapproved`, or an account's transactions) rather than a GET per
-transaction, so a run costs about one request per write plus a few reads.
-When the write set would not fit in the remaining budget, write only complete
-dependent groups that fit and report the rest as deferred to the next run.
+transaction, and ordinary updates go in bulk, so a run costs a handful of
+requests. When the write set would not fit in the remaining budget, write
+only complete dependent groups that fit and report the rest as deferred to the
+next run.
 On a 429, stop writing and report what was applied.
 
 - **Preflight**: re-read the targets. Proceed only when each still matches the
   snapshot (amount, date, account, approved state, payee, category, and no
   subtransactions where you plan to add them). Drifted items drop out.
-- **Update**: one transaction per call, with the body wrapped as
-  `{"transaction": {...}}`. Send the full field set: `account_id`,
-  `date`, `amount`, `memo`, `cleared`, `flag_color`, `category_id`, the payee,
-  and `approved`. Omitted fields can reset. `approved` stays as it was: false
-  for the unapproved transactions categorization works on. Changing an
-  approved transaction needs an explicit request naming it, and keeps it
-  approved.
+- **Update**: send ordinary updates in bulk with `PATCH
+  /budgets/{budget_id}/transactions` and body `{"transactions": [{"id": ...,
+  ...}]}`. Send a split conversion alone with `PUT
+  /budgets/{budget_id}/transactions/{transaction_id}` and body
+  `{"transaction": {...}}`. Either way, send each transaction's full field
+  set: `account_id`, `date`, `amount`, `memo`, `cleared`, `flag_color`,
+  `category_id`, the payee, and `approved`. Omitted fields can reset.
+  `approved` stays as it was: false for the unapproved transactions
+  categorization works on. Changing an approved transaction needs an explicit
+  request naming it, and keeps it approved.
 - **Delete**: one transaction per call, only IDs on the approved list.
-- **Verify**: check each write's response body, which returns the
-  transaction, straight after the write. For an update, confirm every field
+- **Verify**: check each write's response body, which returns the written
+  transactions, straight after the write. For an update, confirm every field
   you meant to change (category, payee, memo, subtransactions) holds the new
   value and every field you meant to preserve (account, date, amount, cleared,
   flag, `import_id`, `approved`) is unchanged. For a delete, expect the

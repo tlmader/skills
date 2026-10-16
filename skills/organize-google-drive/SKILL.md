@@ -48,6 +48,8 @@ Sections, in order:
   rule | reversed`. Trash actions put `TRASH` in the new parent column, and
   held files put `HELD` there. `reversed` is empty until a reversal is
   learned, then `yes`.
+- `Placed`: file IDs this skill moved out of a swept location whose log rows
+  were pruned, one per line with the rule that moved them.
 
 A file's **latest row** is its newest row across all entries. When a section
 is missing, add it on this run's save.
@@ -56,7 +58,8 @@ is missing, add it on this run's save.
 returns several, use the most recently modified one, and trash the others after
 this run's first save succeeds.
 
-**Writing:** save at the end of each step, with that step's rows added under
+**Writing:** save at the end of each step (in create-only mode, once at the end
+of the run, so the file the user may have open is replaced only once), with that step's rows added under
 this run's log entry, so a run that fails midway still records what it did.
 Refetch `ORGANIZE.md` before each save and merge any edits the user made since
 the last read (answers, Backlog lines, rule changes). Overwrite the content in
@@ -79,7 +82,8 @@ run changes nothing else.
 1. **Harvest lessons.** For every row in the log except `HELD` rows and rows
    already marked `reversed`, compare the file's current parent, title, and
    trash state with its latest row. Fetch metadata in bulk (one listing per
-   folder the rows name, plus the trash) rather than one call per file.
+   folder the rows name, plus the trash), then fetch any file missing from
+   those listings by its ID: it may have moved elsewhere.
    - A **reversal** is a file whose parent or title differs from its latest
      row, or a file logged as `TRASH` that now exists outside the trash. A
      file that is gone (trash emptied or purged) is not a reversal, and a later
@@ -116,7 +120,10 @@ run changes nothing else.
    a file in Drive leaves its timestamps unchanged. A file is **settled**, and
    not a candidate, while it sits where and as its latest row places it, by
    this skill or (for a reversed row) by the user. `ORGANIZE.md` is never a
-   candidate. Read a file's content whenever its title alone cannot place it.
+   candidate. A candidate listed under `Placed` is one the user brought back:
+   count it as a reversal of that rule, settle it where it is with a new
+   row, and remove its `Placed` line. Read a file's content whenever its title
+   alone cannot place it.
    - Matches a `confirmed` rule → apply it.
    - Matches a `trial` rule → apply it to at most 3 files per rule per run.
      Files over the cap are logged `HELD` with the rule's name and retried next
@@ -132,7 +139,9 @@ run changes nothing else.
 
 4. **Prune and report.** Drop log rows older than 30 days unless they are the
    latest row of a file that still sits in the root, an inbox folder, or a
-   swept boundary's top level (those rows keep it settled or held). Save, then
+   swept boundary's top level (those rows keep it settled or held). For each
+   dropped row of a file this skill moved out of a swept location, add `-
+   <file id> (<rule>)` to a `Placed` section. Save, then
    report counts moved, renamed, trashed, and held; reversals learned from;
    the open questions; and a link to `ORGANIZE.md`. In a scheduled run, notify
    the user only when something changed or a new question needs them; a run

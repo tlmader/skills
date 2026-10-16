@@ -27,8 +27,9 @@ returned session ID, and confirm an active Notion connection.
 2. Read the local file and base64-encode it inside the tool orchestration.
 3. Call `NOTION_SEND_FILE_UPLOAD` with the upload ID, filename, MIME type, and
    `file_content_base64`.
-4. Continue only after Notion reports `status: "uploaded"`. Retrieve the upload
-   status when the send result is ambiguous; recreate an expired upload.
+4. Continue only after Notion reports `status: "uploaded"` with a
+   `content_length` equal to the original's byte size; retrieve the upload to
+   read both when the send result lacks them. Recreate an expired upload.
 
 Pass base64 straight from the encoding step into the send call. An available
 `s3key` may be tried once; a storage 404 means it cannot supply the bytes, so

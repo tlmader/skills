@@ -82,8 +82,9 @@ Read these from the request or the project's instructions:
    pending and blocked offers retryable. Report a failed ledger write and retry
    it from verified evidence, never by repeating the acquisition.
 
-7. **Log the run** when the ledger is a journal. Report results to the user
-   first, then follow the journal's own instructions and save one coherent
+7. **Log the run** when the ledger is a journal, before the final report so
+   the report can name any journal failure. Follow the journal's own
+   instructions and save one coherent
    entry for the run with new findings, claim changes, or meaningful blockers:
    game, store, expiration, status, and evidence or blocker. Query only the
    configured author's entries, reuse the same run entry on retries, refetch

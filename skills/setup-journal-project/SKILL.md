@@ -26,7 +26,8 @@ halt and point to the install command above.
 
 Collect the project name, its canonical goal, the default author, and the
 Notion destination. Prefer a supplied URL; otherwise search for the exact page
-title and ask the user to resolve any ambiguity before writing. Read the page,
+title and ask the user to resolve any ambiguity before writing. With no match,
+collect a parent location and create the project page there during Apply. Read the page,
 its `Goal`, the Journal database, its data source, schema, views, and every
 entry, following pagination.
 
