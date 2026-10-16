@@ -22,7 +22,9 @@ unchanged events considered for `keep`.
 
 1. **Gather evidence.** Establish the cash received, local date, conversion
    rate and source, actual bank debit, and itemized fees from receipts, issuer
-   activity, statements, exports, or other direct evidence. Reuse evidence
+   activity, statements, exports, or other direct evidence. When cash and
+   debit share a currency and the debit equals the cash withdrawn, with no
+   fee line, the fee is evidenced zero. Reuse evidence
    already in hand before asking for more. Record the fee status as evidenced
    positive, evidenced zero, or unknown. Missing fee lines, a matching transfer
    pair, a typical ATM fee, or an exchange-rate residual establish neither zero

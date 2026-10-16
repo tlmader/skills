@@ -62,7 +62,15 @@ only the approved writes and their verification.
 
 ## Preflight, write, verify
 
-- **Preflight**: GET each target. Proceed only when it still matches the
+YNAB allows 200 API requests per hour per token. Budget them before writing:
+preflight and final verification each use one list read
+(`?type=unapproved`, or an account's transactions) rather than a GET per
+transaction, so a run costs about one request per write plus a few reads.
+When the write set would not fit in the remaining budget, write only complete
+dependent groups that fit and report the rest as deferred to the next run.
+On a 429, stop writing and report what was applied.
+
+- **Preflight**: re-read the targets. Proceed only when each still matches the
   snapshot (amount, date, account, approved state, payee, category, and no
   subtransactions where you plan to add them). Drifted items drop out.
 - **Update**: one transaction per call. Send the full field set: `account_id`,
@@ -72,12 +80,13 @@ only the approved writes and their verification.
   approved transaction needs an explicit request naming it, and keeps it
   approved.
 - **Delete**: one transaction per call, only IDs on the approved list.
-- **Verify**: GET straight after each write. For an update, confirm every field
+- **Verify**: check each write's response body, which returns the
+  transaction, straight after the write. For an update, confirm every field
   you meant to change (category, payee, memo, subtransactions) holds the new
-  value, every field you meant to preserve (account, date, amount, cleared,
-  flag, `import_id`, `approved`) is unchanged. For a delete,
-  accept either a 404 `resource_not_found` or the transaction returned with
-  `deleted: true`. Stop on any mismatch.
+  value and every field you meant to preserve (account, date, amount, cleared,
+  flag, `import_id`, `approved`) is unchanged. For a delete, expect the
+  transaction back with `deleted: true` (a later GET may return 404
+  `resource_not_found`). Stop on any mismatch.
 - **Balance**: after writes that change an account's total, GET the account and
   compare its `cleared_balance` with the expected figure (the institution's
   posted balance when you have one). Report both numbers.

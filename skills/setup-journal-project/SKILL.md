@@ -65,7 +65,8 @@ or backups, and refetch rather than retrying blindly.
 ## 3. Print the instructions
 
 Render [the template](assets/project-instructions.template.md), replacing
-every placeholder with values read back from Notion, and verify none remain.
+every placeholder with values read back from Notion (the author name and goal
+as the user gave them, when Notion has none yet), and verify none remain.
 Use separate page and database links. Set `{{AUTHOR_TYPE}}` to `rich text` or
 `People`. `{{AUTHOR_VALUE}}` is the exact text written into a rich-text
 `Author` (the default author's name, as the user gave it), or the author's

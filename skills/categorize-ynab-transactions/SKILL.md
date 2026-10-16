@@ -156,8 +156,10 @@ account, amount, before and after fields, descriptor and currency, evidence,
 memo, cleared state, structure and counterparts, and `approved: false`.
 
 Before the first write, confirm an ordinary-transaction operation can apply the
-whole write set; a scheduled-transaction operation is no substitute. Re-read
-all targets and drop any item or dependent group whose state drifted. When the
+whole write set; a scheduled-transaction operation is no substitute. The
+preflight, per-write checks, and final verification are `using-ynab`'s,
+including its request budget; run them once, not twice. Drop any item or
+dependent group whose state drifted. When the
 complete supported set cannot be applied, write nothing.
 
 Prefer batch reads. Write through `using-ynab`'s procedure: one transaction
@@ -167,9 +169,8 @@ field. Send `approved: false` explicitly. Stop on an inconsistent result.
 Retry once only when a read proves nothing changed and preconditions still
 hold.
 
-After writing, re-read every modified transaction and affected counterpart and
-verify intended fields, preserved fields, links, signs, totals, and
-`approved: false`.
+After writing, verify with one list read per affected account: intended
+fields, preserved fields, links, signs, totals, and `approved: false`.
 
 ## 4. Coverage gate and report
 

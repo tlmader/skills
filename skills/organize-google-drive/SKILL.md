@@ -124,8 +124,9 @@ inbox folders the survey saw.
 
    Done when every candidate is acted on or held.
 
-4. **Save, log, and report.** Add this run's log entry, drop log entries
-   older than 30 days (harvest never reads them), save `ORGANIZE.md`,
+4. **Save, log, and report.** Add this run's log entry, drop log rows older
+   than 30 days except rows for files still sitting where they were placed in
+   a swept location (those rows mark the files settled), save `ORGANIZE.md`,
    then report counts moved, renamed, trashed, and held; reversals learned
    from; the open questions; and a link to `ORGANIZE.md`. In a scheduled run,
    notify the user only when something changed or a new question needs them; a

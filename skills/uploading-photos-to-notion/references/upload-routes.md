@@ -61,7 +61,8 @@ The element's text becomes the caption; leave it empty when there is none.
 
 ### Block API
 
-- Set `parent_block_id` to the page ID and `after` to the relevant text block's
+- Set `parent_block_id` to the relevant text block's parent (the page, or the
+  toggle, column, or list item holding it) and `after` to that text block's
   ID.
 - Append related photos together, in source order, in one call so adjacency
   holds.
