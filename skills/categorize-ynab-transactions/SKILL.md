@@ -159,10 +159,10 @@ whole write set; a scheduled-transaction operation is no substitute. Re-read
 all targets and drop any item or dependent group whose state drifted. When the
 complete supported set cannot be applied, write nothing.
 
-Prefer batch reads. Batch writes only when their documented behavior preserves
-every supplied transaction and allows full verification; otherwise send the
-smallest per-transaction updates. Send `approved: false` explicitly. Verify
-each write or dependent group immediately and stop on an inconsistent result.
+Prefer batch reads. Write through `using-ynab`'s procedure: one transaction
+per call with the full field set, verified before the next. A connector write
+tool may batch only when its documentation says it preserves every unsent
+field. Send `approved: false` explicitly. Stop on an inconsistent result.
 Retry once only when a read proves nothing changed and preconditions still
 hold.
 
@@ -186,8 +186,9 @@ subtracting cleared `remove` items and reported approved sweeps still present.
 For credit cards and loans, the institution usually reports the amount owed
 as a positive number: require YNAB's balance to equal its negation, sign
 included, so a card in credit still matches only a positive YNAB balance. For
-an investment account, compare cash only; when YNAB tracks its market value,
-report it unchecked. Uncleared YNAB entries and
+an investment account, compare cash including the core money-market position
+(the balance sweeps move within), excluding securities; when YNAB tracks the
+account's market value, report it unchecked. Uncleared YNAB entries and
 pending institution activity sit outside this comparison; list them separately
 in the report. When the institution offers only a current balance that
 includes pending activity, subtract the pending items it lists first. The

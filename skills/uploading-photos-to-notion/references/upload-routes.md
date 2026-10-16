@@ -49,8 +49,9 @@ each part (10 MB recommended) with its
 
 ### Notion Markdown interface
 
-Read the interface's Markdown specification, then put each image immediately
-after its text as:
+Place each image immediately after its text using the `suggested_markdown` or
+`markdown_source` the upload returned. Without them, read the interface's
+Markdown specification; its documented form at the time of writing is:
 
 ```html
 <image src="file-upload://<upload-id>">Caption</image>

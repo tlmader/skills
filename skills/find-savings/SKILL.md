@@ -50,8 +50,9 @@ neither acceptance nor rejection. Label each preference inferred or confirmed.
 
 Recover earlier findings and decisions from the conversation or run context.
 Scratch files last one run. A scheduled run that starts fresh each time needs
-the durable store from the configuration to remember decisions; without one,
-ask once to set it up. When earlier findings cannot be recovered, say so
+the durable store from the configuration to remember decisions. Without one,
+put the setup request at the top of each report, and label proposals as
+possibly repeated, since earlier dismissals cannot be recalled. When earlier findings cannot be recovered, say so
 in the next report, rebuild from source data, and present re-found items
 without claiming they are new. Create trackers or persistent files only when
 the user asks. The skill itself never stores personal financial history.

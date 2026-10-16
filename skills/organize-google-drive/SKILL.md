@@ -60,8 +60,10 @@ turned off, confirm it exists, then trash the previous copy by its ID.
 When no `ORGANIZE.md` exists: survey My Drive (top-level folders, naming
 habits, what sits loose in root, which top-level folders are shared), write
 what you observe as `trial` rules, list the shared folders under `Shared
-folders` with `top level swept: no`, add up to 5 questions, create
-`ORGANIZE.md`, and end with the report. The first run changes nothing else.
+folders` with `top level swept: no`, add up to 5 questions, write a log entry
+with the survey summary and no rows, create `ORGANIZE.md`, and end with the
+report. The first run changes nothing else; the next run sweeps everything the
+survey saw.
 
 ## Steps
 
@@ -73,10 +75,10 @@ folders` with `top level swept: no`, add up to 5 questions, create
      logged as `TRASH` is reversed only when it still exists outside the
      trash; one that is gone (emptied or purged) is not a reversal. Compare
      against the latest row only: a later run's own move or rename of the
-     file replaces the earlier row and is never a reversal. Each one demotes the rule
-     that caused it to `trial 0/3`, even if it was already `confirmed`, and
-     adds a corrected rule capturing where the user put it instead. Mark the
-     log row `reversed: yes` so it counts once.
+     file replaces the earlier row and is never a reversal. Each reversal
+     demotes the rule that caused it to `trial 0/3`, even if it was already
+     `confirmed`, and adds a corrected rule capturing where the user put the
+     file instead. Mark the log row `reversed: yes` so it counts once.
    - A `trial` rule advances one step per run, not per file, when it acted in
      the previous run and none of its logged actions are reversed; at `3/3` it
      becomes `confirmed`. A rule therefore needs three runs without a
@@ -94,10 +96,10 @@ folders` with `top level swept: no`, add up to 5 questions, create
    if not, skip the line and add a question about it. Remove each line once
    done.
 
-3. **Sweep.** Candidates are files the user owns, created or modified since the
-   last run's start time, that sit in the My Drive root, in an `Inbox folders` folder, or in
-   the top level of a `Shared folders` folder marked `top level swept: yes`,
-   plus every file whose latest log row is `HELD` and that has not moved.
+3. **Sweep.** Candidates are all files the user owns that currently sit in the
+   My Drive root, in an `Inbox folders` folder, or in the top level of a
+   `Shared folders` folder marked `top level swept: yes`. Location decides,
+   not dates: moving a file in Drive leaves its timestamps unchanged.
    `ORGANIZE.md` is never a candidate. Read a file's content whenever its title
    alone cannot place it.
    - Matches a `confirmed` rule → apply it.
@@ -107,8 +109,9 @@ folders` with `top level swept: no`, add up to 5 questions, create
      question listing them instead; answering it confirms the rule.
    - No rule, or two rules disagree → **hold**: leave the file, log it as
      `HELD`, and add a question naming it and your best guess when a slot is
-     free. Keep at most 5 open questions. A file already held stays held
-     without a new log row, and gets a question only when it has none yet.
+     free. Keep at most 5 open questions. A file whose latest row is already
+     `HELD` stays held without a new row, and gets a question only when it
+     has none yet; once a rule matches it, apply the rule.
 
    Done when every candidate is acted on or held.
 
@@ -120,8 +123,8 @@ folders` with `top level swept: no`, add up to 5 questions, create
 
 ## Guardrails
 
-Actions are folder creation, moves, renames, and trash only. Drive trash (recoverable for 30
-days) is the only way to remove a file, and only under a `confirmed` rule, a
+Actions are folder creation, moves, renames, and trash only. Drive trash
+(recoverable for 30 days) is the only way to remove a file, and only under a `confirmed` rule, a
 Backlog line, for an empty folder listed under `Inbox folders`, or for a
 superseded copy of `ORGANIZE.md` as the State section describes. Files stay in the user's Drive with their sharing as found. Work
 only on files the user owns.

@@ -38,8 +38,9 @@ Read these from the request or the project's instructions:
 1. **Load history.** Read discovery and ownership history from the ledger,
    including entry bodies, not only titles. Discovery history records what was
    reported; it never proves ownership. Start with empty history only after
-   confirming the ledger holds no records. When history cannot be read, report
-   the blocker, skip claims, and label any findings as not deduplicated.
+   confirming the ledger holds no records. When history cannot be read, or no
+   ledger is configured, report the blocker with how to configure one, skip
+   claims, and label any findings as not deduplicated.
 
 2. **Scan the Live section.** Read every entry on
    `https://isthereanydeal.com/giveaways/`, following pagination and lazy

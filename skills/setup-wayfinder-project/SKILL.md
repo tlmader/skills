@@ -69,8 +69,10 @@ Verify authenticated Notion capabilities for:
 - page-level comment reads and writes.
 
 Use the runtime's Notion integration; where it lacks an operation, use an
-already-authenticated official Notion API or CLI. Halt before writing unless
-every capability is available. Credentials stay in the runtime's secret store.
+already-authenticated official Notion API or CLI. The public API cannot create
+a native status property: when no route can, ask the user to add `Status` by
+hand with Notion's default options, verify it, and continue. Halt before
+writing unless every other capability is available. Credentials stay in the runtime's secret store.
 
 For an existing page, inspect child databases and linked database views. An
 `Issues` or Wayfinder tracker, a `Documents` or source-grounded reference
