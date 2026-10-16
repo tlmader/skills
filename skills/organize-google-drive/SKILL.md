@@ -36,9 +36,10 @@ Sections, in order:
   is empty and remove its line.
 - `Backlog`: specific actions the user already approved. Boundary crossings
   listed here are pre-approved.
-- `Questions`: numbered, at most 5 open. While a free slot exists, each run
-  asks about one `top level swept: no` folder: should its loose top-level
-  files be organized? The answer sets the flag.
+- `Questions`: numbered, at most 5 open. Further questions wait in a `Queued`
+  list below them and move up, oldest first, as slots free. Each run queues
+  one question about a `top level swept: no` folder: should its loose
+  top-level files be organized? The answer sets the flag.
 - `Log`: one entry per run, newest first: a `### <start date and time, with
   timezone> — <summary>` heading,
   one or two lines of prose, then a table with columns `file id | title | old
@@ -117,10 +118,10 @@ inbox folders the survey saw.
      next run. A `trial` rule whose action is trash holds its files and asks one
      question listing them instead; answering it confirms the rule.
    - No rule, or two rules disagree → **hold**: leave the file, log it as
-     `HELD`, and add a question naming it and your best guess when a slot is
-     free. Keep at most 5 open questions. A file whose latest row is already
-     `HELD` stays held without a new row, and gets a question only when it
-     has none yet; once a rule matches it, apply the rule.
+     `HELD`, and add a question naming it and your best guess (queued when
+     slots are full). A file whose latest row is already `HELD` stays held
+     without a new row, and gets a question only when it has none yet; once a
+     rule matches it, apply the rule.
 
    Done when every candidate is acted on or held.
 
@@ -142,4 +143,6 @@ only on files the user owns.
 
 A file crossing the edge of any `Shared folders` folder, in either direction,
 is held even under a `confirmed` rule, unless a Backlog line or a confirmed
-rule names that exact file or group of files.
+rule names that exact file or group of files. Each such hold adds one question
+proposing the move (grouping files that share a destination); a yes becomes a
+Backlog line.

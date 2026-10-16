@@ -159,8 +159,10 @@ Before the first write, confirm an ordinary-transaction operation can apply the
 whole write set; a scheduled-transaction operation is no substitute. The
 preflight, per-write checks, and final verification are `using-ynab`'s,
 including its request budget; run them once, not twice. Drop any item or
-dependent group whose state drifted. When the
-complete supported set cannot be applied, write nothing.
+dependent group whose state drifted. When no available operation can apply
+the write set, write nothing. When only the request budget limits it, write
+the complete dependent groups that fit and report the rest as deferred to the
+next run.
 
 Prefer batch reads. Write through `using-ynab`'s procedure: one transaction
 per call with the full field set, verified before the next. A connector write

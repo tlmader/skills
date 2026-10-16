@@ -39,8 +39,9 @@ Read these from the request or the project's instructions:
    including entry bodies, not only titles. Discovery history records what was
    reported; it never proves ownership. Start with empty history only after
    confirming the ledger holds no records. When history cannot be read, or no
-   ledger is configured, report the blocker with how to configure one, skip
-   claims, and label any findings as not deduplicated.
+   ledger is configured, report the blocker with how to configure one and
+   label findings as not deduplicated. Scheduled runs then skip claims; an
+   explicit claim request proceeds, relying on step 5's live ownership check.
 
 2. **Scan the Live section.** Read every entry on
    `https://isthereanydeal.com/giveaways/`, following pagination and lazy
