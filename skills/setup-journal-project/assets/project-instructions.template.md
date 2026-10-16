@@ -55,5 +55,6 @@ For entries with photos, use `uploading-photos-to-notion`. If an upload fails
 after the text is saved, keep the text, report the photos as pending, and
 retry on the same entry.
 
-Keep the turn open until journal work finishes. Mention journal work only when
-useful.
+Finish journal text before ending the turn. Photo uploads that
+`uploading-photos-to-notion` hands to a background task finish on their own;
+report their outcome when it arrives. Mention journal work only when useful.

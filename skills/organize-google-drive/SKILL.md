@@ -39,8 +39,8 @@ Sections, in order:
 - `Log`: one entry per run, newest first: a `### <date> — <summary>` heading,
   one or two lines of prose, then a table with columns `file id | title | old
   parent | new parent | old title | new title | rule | reversed`. Trash
-  actions put `TRASH` in the new parent column; `reversed` is empty until a
-  reversal is learned, then `yes`.
+  actions put `TRASH` in the new parent column, and held files put `HELD`
+  there. `reversed` is empty until a reversal is learned, then `yes`.
 
 When a section is missing, add it on this run's save. Seed a new `Shared
 folders` section from any folder an existing boundary rule already names.
@@ -65,10 +65,12 @@ folders` with `top level swept: no`, add up to 5 questions, create
 ## Steps
 
 1. **Harvest lessons.** For every action logged in the last 30 days (Drive's
-   trash window) and not yet marked `reversed`, fetch the file's current
-   metadata.
-   - A **reversal** is a file whose parent or title the user changed after you
-     set it, or a trashed file the user restored. Each one demotes the rule
+   trash window), skipping `HELD` rows and rows marked `reversed`, fetch the
+   file's current metadata.
+   - A **reversal** is a file whose parent or title differs from the latest
+     log row for that file, or a trashed file the user restored. Compare
+     against the latest row only: a later run's own move or rename of the
+     file replaces the earlier row and is never a reversal. Each one demotes the rule
      that caused it to `trial 0/3`, even if it was already `confirmed`, and
      adds a corrected rule capturing where the user put it instead. Mark the
      log row `reversed: yes` so it counts once.
@@ -91,14 +93,17 @@ folders` with `top level swept: no`, add up to 5 questions, create
 
 3. **Sweep.** Candidates are files the user owns, created or modified since the
    last run, that sit in the My Drive root, in an `Inbox folders` folder, or in
-   the top level of a `Shared folders` folder marked `top level swept: yes`.
+   the top level of a `Shared folders` folder marked `top level swept: yes`,
+   plus every file whose latest log row is `HELD` and that has not moved.
    `ORGANIZE.md` is never a candidate. Read a file's content whenever its title
    alone cannot place it.
    - Matches a `confirmed` rule → apply it.
    - Matches a `trial` rule → apply it to at most 3 files per rule per run.
-   - No rule, or two rules disagree → **hold**: leave the file and add a
-     question naming it and your best guess. Keep at most 5 open questions; add
-     new ones only into free slots.
+     A `trial` rule whose action is trash holds its files and asks one
+     question listing them instead; answering it confirms the rule.
+   - No rule, or two rules disagree → **hold**: leave the file, log it as
+     `HELD`, and add a question naming it and your best guess when a slot is
+     free. Keep at most 5 open questions.
 
    Done when every candidate is acted on or held.
 
@@ -110,7 +115,7 @@ folders` with `top level swept: no`, add up to 5 questions, create
 
 ## Guardrails
 
-Actions are moves, renames, and trash only. Drive trash (recoverable for 30
+Actions are folder creation, moves, renames, and trash only. Drive trash (recoverable for 30
 days) is the only way to remove a file, and only under a `confirmed` rule, a
 Backlog line, or for an empty folder listed under `Inbox folders`. Files stay in the user's Drive with their sharing as found. Work
 only on files the user owns.

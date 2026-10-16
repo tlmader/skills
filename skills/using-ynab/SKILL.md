@@ -68,10 +68,12 @@ only the approved writes and their verification.
   `date`, `amount`, `memo`, `cleared`, `flag_color`, `category_id`, the payee,
   and `approved: false`. Omitted fields can reset.
 - **Delete**: one transaction per call, only IDs on the approved list.
-- **Verify**: GET straight after each write. For an update, compare every field
-  you meant to preserve (account, date, amount, cleared, flag, `import_id`) and
-  confirm `approved` is false. For a delete, expect 404 `resource_not_found`.
-  Stop on any mismatch.
+- **Verify**: GET straight after each write. For an update, confirm every field
+  you meant to change (category, payee, memo, subtransactions) holds the new
+  value, every field you meant to preserve (account, date, amount, cleared,
+  flag, `import_id`) is unchanged, and `approved` is false. For a delete,
+  accept either a 404 `resource_not_found` or the transaction returned with
+  `deleted: true`. Stop on any mismatch.
 - **Balance**: after writes that change an account's total, GET the account and
   compare its `cleared_balance` with the expected figure (the institution's
   posted balance when you have one). Report both numbers.

@@ -66,9 +66,9 @@ Discover capabilities once, then fetch in parallel:
 - only the approved history needed for merchant and category precedent, plus
   the counterparts, splits, fees, and rebates needed to reconcile eligible cash
   withdrawals; and
-- the institution's current balance for every account holding an eligible
-  item, from a connected bank or brokerage source or a supplied statement, with
-  its source and as-of time.
+- the institution's posted balance for every account holding an eligible item
+  or a counterpart the write set will touch, from a connected bank or
+  brokerage source or a supplied statement, with its source and as-of time.
 
 Follow pagination and keep each eligible transaction's complete state. Finish
 enumeration before defining the write set. Reuse this snapshot; read again only
@@ -176,7 +176,8 @@ uncategorized query alone cannot detect omitted fees.
 
 ### Balance gate
 
-For every account holding an eligible item, compare YNAB's **cleared**
+For every **touched account** (one holding an eligible item or a changed
+counterpart), compare YNAB's **cleared**
 balance with the institution's **posted** balance from the snapshot, after
 subtracting cleared `remove` items still present. Uncleared YNAB entries and
 pending institution activity sit outside this comparison; list them separately
@@ -185,8 +186,9 @@ includes pending activity, subtract the pending items it lists first. The
 account passes when the two match to the cent. Otherwise the gap is the
 finding: identify the entries that sum to it (sweeps, duplicates, missing
 imports, wrong signs, wrong cleared state) before reporting. An unexplained gap
-blocks completion. Without an institution balance, report the account as
-unchecked.
+blocks completion. An account with no institution balance available (a cash
+wallet, or no bank connector) is reported as unchecked; that limits the
+verification but does not block completion.
 
 ### Completion
 
@@ -197,7 +199,7 @@ The run is complete only when:
   categoryless structure;
 - every `remove` item is listed with the entry it duplicates;
 - every cash withdrawal passes its gate;
-- every touched account passes the balance gate;
+- every touched account passes the balance gate or is reported unchecked;
 - no eligible item remains blocked or unverified; and
 - every modified item passed final verification with `approved: false`.
 
