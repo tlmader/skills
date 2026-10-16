@@ -36,27 +36,9 @@ Show `Document`, `Type`, `Subjects`, `Topics`, `Source date`, `Reviewed`, and `U
 
 ## Document body
 
-Create each Document with this body:
-
-```markdown
-## Summary
-
-<the smallest goal-relevant quick-reference synthesis>
-
-## Facts
-
-<dated, source-grounded facts; preserve names, measurements, units, and attribution>
-
-## Interpretation and open questions
-
-<clearly labeled synthesis, uncertainty, conflicts, and unanswered questions>
-
-## Sources
-
-- [<source title>](<direct source URL>) — <source date>; <page, section, or record locator when available>
-```
-
-Every factual statement must be traceable to at least one listed source. Keep unsupported interpretation in its named section. Preserve conflicting records as separate dated facts.
+Every Document uses the body under "Create a Document with this body" in the
+project instructions template. That template is the single source of truth for
+the body; validate Documents against it.
 
 ## Data invariants
 

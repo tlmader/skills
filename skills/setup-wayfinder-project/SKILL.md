@@ -29,8 +29,9 @@ changes.
 
 - The skills the printed instructions depend on: `wayfinder`, `grilling`,
   `domain-modeling`, `research`, and `prototype`, from
-  [mattpocock/skills](https://github.com/mattpocock/skills). Install them with
-  `npx skills@latest add mattpocock/skills`.
+  [mattpocock/skills](https://github.com/mattpocock/skills). Install just those
+  five with `npx skills@latest add mattpocock/skills --skill wayfinder grilling
+  domain-modeling research prototype`.
 - A Notion integration with the capabilities listed in preflight below.
 
 ## 1. Resolve the target without writing

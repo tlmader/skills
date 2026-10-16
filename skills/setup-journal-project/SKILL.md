@@ -60,10 +60,10 @@ or backups, and refetch rather than retrying blindly.
 
 Render [the template](assets/project-instructions.template.md), replacing
 every placeholder with values read back from Notion, and verify none remain.
-Use separate page and database links. For a People-type `Author`, replace the
-rich-text wording with the field type and exact Notion user ID. Print the
-result inside a Markdown fence longer than any fence it contains, and state
-any view or upload capability the integration lacked.
+Use separate page and database links. Set `{{AUTHOR_TYPE}}` to `rich text` or
+`People`; for People, `{{AUTHOR_VALUE}}` is the author's exact Notion user
+ID. Print the result inside a Markdown fence longer than any fence it
+contains, and state any view or upload capability the integration lacked.
 
 The run is complete when the Journal matches the contract on read-back and the
 printed instructions contain no placeholders.

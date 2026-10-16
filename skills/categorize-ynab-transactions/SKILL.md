@@ -92,8 +92,12 @@ Classify structure before purpose:
   splits keep their economic structure.
 - A suspected duplicate stays as it is until its identity is resolved; a
   confirmed duplicate is `remove`.
-- An existing split changes only when every subtransaction ID, link, and the
-  exact parent total survive.
+- An existing split stays as it is: the API cannot update its
+  subtransactions. When one needs a change, mark it `skip` with that blocker.
+- Converting a linked transfer into a split replaces its counterpart with a
+  new ID. Treat it as a structural change: do it only with the go-ahead
+  `using-ynab` requires, then verify the destination account holds exactly one
+  counterpart.
 
 Resolve merchant identity from this **evidence ladder**, highest first: the
 user's current statement or receipt; an explicit project rule; consistent
@@ -172,11 +176,15 @@ uncategorized query alone cannot detect omitted fees.
 
 ### Balance gate
 
-For every account holding an eligible item, compare YNAB's working balance with
-the institution balance from the snapshot, after subtracting `remove` items
-still present. The account passes when the two match to the cent. Otherwise
-the gap is the finding: identify the entries that sum to it (sweeps,
-duplicates, missing imports, wrong signs) before reporting. An unexplained gap
+For every account holding an eligible item, compare YNAB's **cleared**
+balance with the institution's **posted** balance from the snapshot, after
+subtracting cleared `remove` items still present. Uncleared YNAB entries and
+pending institution activity sit outside this comparison; list them separately
+in the report. When the institution offers only a current balance that
+includes pending activity, subtract the pending items it lists first. The
+account passes when the two match to the cent. Otherwise the gap is the
+finding: identify the entries that sum to it (sweeps, duplicates, missing
+imports, wrong signs, wrong cleared state) before reporting. An unexplained gap
 blocks completion. Without an institution balance, report the account as
 unchecked.
 

@@ -38,8 +38,9 @@ Sections, in order:
 - `Questions`: numbered, at most 5 open.
 - `Log`: one entry per run, newest first: a `### <date> — <summary>` heading,
   one or two lines of prose, then a table with columns `file id | title | old
-  parent | new parent | old title | new title | rule`. Trash actions put
-  `TRASH` in the new parent column.
+  parent | new parent | old title | new title | rule | reversed`. Trash
+  actions put `TRASH` in the new parent column; `reversed` is empty until a
+  reversal is learned, then `yes`.
 
 When a section is missing, add it on this run's save. Seed a new `Shared
 folders` section from any folder an existing boundary rule already names.
@@ -63,21 +64,25 @@ folders` with `top level swept: no`, add up to 5 questions, create
 
 ## Steps
 
-1. **Harvest lessons.** For every action in the latest log entry, fetch the
-   file's current metadata.
+1. **Harvest lessons.** For every action logged in the last 30 days (Drive's
+   trash window) and not yet marked `reversed`, fetch the file's current
+   metadata.
    - A **reversal** is a file whose parent or title the user changed after you
      set it, or a trashed file the user restored. Each one demotes the rule
-     that caused it to `trial 0/3` and adds a corrected rule capturing where the
-     user put it instead.
-   - An unreversed action advances its `trial` rule one step; at `3/3` the rule
-     becomes `confirmed`.
+     that caused it to `trial 0/3`, even if it was already `confirmed`, and
+     adds a corrected rule capturing where the user put it instead. Mark the
+     log row `reversed: yes` so it counts once.
+   - A `trial` rule advances one step per run, not per file, when it acted in
+     the previous run and none of its logged actions are reversed; at `3/3` it
+     becomes `confirmed`. A rule therefore needs three runs without a
+     correction to be confirmed.
    - Each answered question becomes a `confirmed` rule, plus Backlog lines for
      any specific files it names; delete the question. An answer counts whether
      the user wrote it under the question in `ORGANIZE.md` or gave it in this
      session.
 
-   Done when every logged action is checked and every answered question is
-   converted.
+   Done when every action in the window is checked and every answered
+   question is converted.
 
 2. **Clear the backlog.** Do every Backlog line (moves, renames, trashes,
    folder creation). First check each file still exists where the line expects;
@@ -106,8 +111,8 @@ folders` with `top level swept: no`, add up to 5 questions, create
 ## Guardrails
 
 Actions are moves, renames, and trash only. Drive trash (recoverable for 30
-days) is the only way to remove a file, and only under a `confirmed` rule or a
-Backlog line. Files stay in the user's Drive with their sharing as found. Work
+days) is the only way to remove a file, and only under a `confirmed` rule, a
+Backlog line, or for an empty folder listed under `Inbox folders`. Files stay in the user's Drive with their sharing as found. Work
 only on files the user owns.
 
 A file crossing the edge of any `Shared folders` folder, in either direction,

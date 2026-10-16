@@ -30,9 +30,14 @@ unchanged events considered for `keep`.
    dates, amounts, accounts, and descriptors; inspect nearby separately posted
    fees and rebates, duplicates, and sweeps (a same-day core redemption equal
    to the debit is a sweep, not a second inflow). Repair an existing event in
-   place with its IDs and links preserved; an existing counterpart is
-   expected. Create a missing leg only after confirming it is absent and how
-   the API creates counterparts. Unresolved duplicates block the event.
+   place, keeping IDs and links wherever the API allows; an existing
+   counterpart is expected. Adding an included-fee split to a linked transfer
+   converts it into a split, which replaces the counterpart with a new ID:
+   take that step only with the go-ahead `using-ynab` requires for converting
+   a linked transfer. An existing split cannot be edited, so an event whose
+   fix needs one changed is blocked. Create a missing leg only after
+   confirming it is absent and how the API creates counterparts. Unresolved
+   duplicates block the event.
 3. **Reconcile amounts.** Let `P` be the evidenced cash principal in budget
    currency, `F` the fees included in the withdrawal debit, and `D` that
    debit's magnitude. Require `D = P + F` exactly in integer milliunits after
@@ -52,7 +57,8 @@ unchanged events considered for `keep`.
    alone. A blocked event gets no partial direction-only or fee-only repair.
 5. **Verify the result.** Re-read all affected entries and compare them with
    the source evidence, not only with the fields you proposed. Check equal and
-   opposite principal, correct accounts and links, every evidenced fee
+   opposite principal, correct accounts and links (exactly one counterpart,
+   under its new ID after a split conversion), every evidenced fee
    represented exactly once in the fee category, separate rebates, exact parent
    and split totals, no duplicate legs, and preserved approval states. An event
    passes only with evidenced fees (or evidenced zero) and every check

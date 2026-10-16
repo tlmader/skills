@@ -6,6 +6,7 @@ Use this Notion database as the project's journal.
 - Notion Database: [Journal]({{JOURNAL_URL}})
 - Goal: {{GOAL}}
 - Default author: {{AUTHOR_NAME}}
+- `Author` field type: {{AUTHOR_TYPE}}
 - Exact `Author` value: `{{AUTHOR_VALUE}}`
 
 The Notion page's `Goal` is canonical. Before writing, verify the page and
@@ -27,8 +28,9 @@ unrelated events or dates. Set:
 
 Resolve `Author` before searching. Search only that author's entries near the
 relevant date, then compare event meaning. Refetch before updating and require
-an exact author match; for a People field, require exactly the resolved user ID
-as the only person. When ownership is empty, different, multiple, or changed,
+an exact author match. For a rich-text `Author`, write and match the exact
+value above; for a People `Author`, set and require exactly that user ID as
+the only person. When ownership is empty, different, multiple, or changed,
 create a new entry. Changing authorship or editing another author's entry
 needs a precise target and the user's confirmation.
 

@@ -30,10 +30,17 @@ Keep the token out of chat, logs, and files.
 
 Endpoints, relative to `https://api.ynab.com/v1`:
 
-- `GET|PUT|DELETE /budgets/{budget_id}/transactions/{transaction_id}`
-- `GET /budgets/{budget_id}/accounts/{account_id}`
+| Purpose | Endpoint |
+| --- | --- |
+| Budgets (find `budget_id`) | `GET /budgets` |
+| Accounts and `transfer_payee_id` | `GET /budgets/{budget_id}/accounts` |
+| One account and its balances | `GET /budgets/{budget_id}/accounts/{account_id}` |
+| Categories | `GET /budgets/{budget_id}/categories` |
+| Unapproved or uncategorized transactions | `GET /budgets/{budget_id}/transactions?type=unapproved` (or `uncategorized`) |
+| An account's transactions (counterparts) | `GET /budgets/{budget_id}/accounts/{account_id}/transactions` |
+| Read, update, or delete one transaction | `GET\|PUT\|DELETE /budgets/{budget_id}/transactions/{transaction_id}` |
 
-`budget_id` is the live budget UUID from the budget list. After the run, tell
+`budget_id` is the live budget UUID from `GET /budgets`. After the run, tell
 the user in one line which route carried the writes.
 
 ## Authorization
@@ -66,8 +73,8 @@ only the approved writes and their verification.
   confirm `approved` is false. For a delete, expect 404 `resource_not_found`.
   Stop on any mismatch.
 - **Balance**: after writes that change an account's total, GET the account and
-  compare its balance with the expected figure (the institution balance when
-  you have one). Report both numbers.
+  compare its `cleared_balance` with the expected figure (the institution's
+  posted balance when you have one). Report both numbers.
 - **Coverage**: re-list `unapproved` and `uncategorized` transactions at the
   end and reconcile against the starting set.
 
