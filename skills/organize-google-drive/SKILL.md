@@ -111,7 +111,9 @@ run changes nothing else.
      - a boundary's top level: the answer sets its `top level swept` flag.
 
      An answer counts whether the user wrote it under the question in
-     `ORGANIZE.md` or gave it in this session.
+     `ORGANIZE.md` or gave it in this session. Retire, without a rule, any
+     question whose files the user has since moved or trashed themselves:
+     they decided by hand.
 
    Done when every row is checked and every answered question is converted.
 
@@ -155,9 +157,10 @@ run changes nothing else.
    `<file id> (<rule>, <date>)` to `Placed`. Drop `Placed` lines older than
    180 days. Save, then report counts moved, renamed, trashed, and held;
    reversals learned from; the open questions, which the user can answer in
-   chat; and a link to `ORGANIZE.md`. In a scheduled run, notify the user only
-   when something changed or a new question needs them; a run with no actions
-   and no new questions stays silent.
+   chat; and a link to `ORGANIZE.md`. Convert an answer given in chat after
+   the report as in step 1 and save it right away. In a scheduled run, notify
+   the user only when something changed or a new question needs them; a run
+   with no actions and no new questions stays silent.
 
 ## Guardrails
 

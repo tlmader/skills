@@ -33,9 +33,12 @@ unchanged events considered for `keep`.
    - **Same currency**: the statement or issuer activity is the evidence. A
      debit that is a multiple of the smallest note ATMs dispense in that
      currency (20.00 for most US ATMs), with no fee line for it, has an
-     evidenced zero fee, and the debit is the cash withdrawn. Any other debit,
-     like 43.00 or 103.50, may have a surcharge folded in: the fee is unknown
-     until a receipt or itemized statement shows it.
+     evidenced zero fee, and the debit is the cash withdrawn. Any other
+     debit, like 43.00 or 103.50, has a surcharge folded in: read the cash
+     withdrawn as the largest such multiple below the debit (40.00, 100.00)
+     and the fee as the remainder (3.00, 3.50), record the fee as **inferred
+     from the amount**, and let the event pass, reported as inferred. A
+     receipt or itemized statement overrides the inference.
    - **Foreign currency**: a missing fee line, a matching transfer pair, a
      typical ATM fee, or an exchange-rate residual establishes neither zero
      nor an amount; the fee needs a receipt or an itemized statement.
@@ -79,7 +82,8 @@ unchanged events considered for `keep`.
    under its new ID after a split conversion), every evidenced fee
    represented exactly once in the fee category, separate rebates, exact parent
    and split totals, no duplicate legs, and preserved approval states. An event
-   passes only with evidenced fees (or evidenced zero) and every check
+   passes only with evidenced fees (evidenced zero, or inferred from the
+   amount) and every check
    satisfied. Unknown fees or missing evidence keep it blocked, even when the
    transfer is balanced and categoryless.
 

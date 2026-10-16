@@ -45,12 +45,12 @@ Read these from the request or the project's instructions:
 
 2. **Scan the Live section.** Read every entry on
    `https://isthereanydeal.com/giveaways/`, following pagination and lazy
-   loading. Capture game, store, official offer link or identifier, and
-   expiration as displayed (`Unknown` if absent). A blank list without an
-   explicit empty-state message is an incomplete scan: reload once, then
-   report failure if completeness is still uncertain. An incomplete scan
-   leaves discovery history untouched; verified claim outcomes are still
-   saved.
+   loading, and keep only offers on the configured stores. Capture game,
+   store, official offer link or identifier, and expiration as displayed
+   (`Unknown` if absent). A blank list without an explicit empty-state message
+   is an incomplete scan: reload once, then report failure if completeness is
+   still uncertain. An incomplete scan leaves discovery history untouched;
+   verified claim outcomes are still saved.
 
 3. **Queue offers.** Key discoveries by store plus name, comparing names after
    trimming, collapsing whitespace, and case-folding, so the same game on a
