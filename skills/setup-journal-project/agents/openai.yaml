@@ -1,0 +1,12 @@
+interface:
+  display_name: Setup Journal Project
+  short_description: Set up Notion journals and portable project instructions
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: false

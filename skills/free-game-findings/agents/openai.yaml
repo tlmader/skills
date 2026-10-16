@@ -1,0 +1,14 @@
+interface:
+  display_name: Free Game Findings
+  short_description: Find, claim, and track free-to-keep games
+  default_prompt: Use $free-game-findings to find and claim eligible zero-cost giveaways
+    and record verified outcomes in the configured ledger.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

@@ -1,0 +1,14 @@
+interface:
+  display_name: Uploading Photos to Notion
+  short_description: Upload original photos to Notion correctly
+  default_prompt: Use $uploading-photos-to-notion to attach these original photos
+    to the correct Notion page.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

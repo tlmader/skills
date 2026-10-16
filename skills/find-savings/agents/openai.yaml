@@ -1,0 +1,14 @@
+interface:
+  display_name: Find Savings
+  short_description: Find spending cuts and track savings opportunities
+  default_prompt: Use $find-savings to review spending, research savings opportunities,
+    and prepare a weekly report.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

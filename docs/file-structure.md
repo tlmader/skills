@@ -30,11 +30,15 @@ This document describes the layout of `tlmader/skills`.
 skills/
 └── <name>/
     ├── SKILL.md
-    └── <optional reference files>
+    ├── references/       # material only some runs need, linked from SKILL.md
+    ├── assets/           # templates and icons
+    └── agents/openai.yaml  # optional Codex and ChatGPT display metadata
 ```
 
-Keep `SKILL.md` concise and move long reference material into sibling files
-that the skill links to.
+Keep `SKILL.md` concise and move material that only some branches need into
+`references/`, linked from the step that needs it. A skill names the
+connectors it needs and the settings it reads, and holds no personal
+identifiers, accounts, or amounts.
 
 ## Symlink hygiene
 
