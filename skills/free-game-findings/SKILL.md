@@ -48,7 +48,8 @@ Read these from the request or the project's instructions:
    expiration as displayed (`Unknown` if absent). A blank list without an
    explicit empty-state message is an incomplete scan: reload once, then
    report failure if completeness is still uncertain. An incomplete scan
-   leaves history untouched.
+   leaves discovery history untouched; verified claim outcomes are still
+   saved.
 
 3. **Queue offers.** Key discoveries by store plus name, comparing names after
    trimming, collapsing whitespace, and case-folding, so the same game on a

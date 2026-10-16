@@ -180,12 +180,13 @@ uncategorized query alone cannot detect omitted fees.
 ### Balance gate
 
 For every **touched account** (one holding an eligible item or a changed
-counterpart), compare YNAB's **cleared**
-balance with the institution's **posted** balance from the snapshot, after
+counterpart), read the institution's **posted** balance and YNAB's **cleared**
+balance together at gate time and compare them, after
 subtracting cleared `remove` items and reported approved sweeps still present.
-For credit cards and loans, the institution usually reports the amount owed
-as a positive number: require YNAB's balance to equal its negation, sign
-included, so a card in credit still matches only a positive YNAB balance. For
+For credit cards and loans, establish the source's sign convention from its
+documentation or field name, not by trying both: when it reports the amount
+owed as positive, require YNAB's balance to equal its negation; when it
+reports a signed balance, compare directly. For
 an investment account, compare cash including the core money-market position
 (the balance sweeps move within), excluding securities; when YNAB tracks the
 account's market value, report it unchecked. Uncleared YNAB entries and

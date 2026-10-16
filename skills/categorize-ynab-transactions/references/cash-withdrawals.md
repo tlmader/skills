@@ -27,7 +27,9 @@ unchanged events considered for `keep`.
    positive, evidenced zero, or unknown. Missing fee lines, a matching transfer
    pair, a typical ATM fee, or an exchange-rate residual establish neither zero
    nor an amount. A rebate alone proves neither the original charge nor which
-   withdrawal it belongs to.
+   withdrawal it belongs to. A best-guess estimate the user explicitly asked
+   for, written with an `Est.` memo (see `using-ynab`), counts as the user's
+   evidence: the event can pass, reported as passed on an estimate.
 2. **Resolve existing entries.** Read both transfer sides and every split,
    including approved counterparts as read-only evidence. Match references,
    dates, amounts, accounts, and descriptors; inspect nearby separately posted

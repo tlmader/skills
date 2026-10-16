@@ -38,7 +38,7 @@ Apply these deterministic mappings:
 
 Treat only blank or unfamiliar statuses as ambiguous. Preserve every `Assignee` independently of status; assignment never supplies evidence that work has started, and progress never supplies evidence about responsibility. Include affected linked Issue names and collect an operator decision before producing the confirmable plan.
 
-The migration capability must preserve values while converting or reconfiguring the property. Halt before confirmation if the active integration or an already-authenticated official Notion API or CLI cannot guarantee the native lifecycle and mapping.
+The migration capability must preserve values while converting or reconfiguring the property. When no integration, API, or CLI can convert it (the public Notion API cannot create a native status property), include a hand step in the plan: the user converts `Status` to Notion's native status type in the Notion UI, keeping its option names; then verify the conversion and apply the mapping above to the resulting values. Halt before confirmation only when neither route can guarantee the native lifecycle and mapping.
 
 ## Preservation and verification
 

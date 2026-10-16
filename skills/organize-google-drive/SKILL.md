@@ -32,7 +32,7 @@ Sections, in order:
   a file in shares it and moving it out revokes their access.
 - `Inbox folders`: one line per folder, `- <name> (<folder id>)`. Their
   contents are organized like loose root files; trash a listed folder once it
-  is empty.
+  is empty and remove its line.
 - `Backlog`: specific actions the user already approved. Boundary crossings
   listed here are pre-approved.
 - `Questions`: numbered, at most 5 open.
@@ -96,10 +96,12 @@ survey saw.
    if not, skip the line and add a question about it. Remove each line once
    done.
 
-3. **Sweep.** Candidates are all files the user owns that currently sit in the
-   My Drive root, in an `Inbox folders` folder, or in the top level of a
-   `Shared folders` folder marked `top level swept: yes`. Location decides,
-   not dates: moving a file in Drive leaves its timestamps unchanged.
+3. **Sweep.** Candidates are all files, not folders, the user owns that
+   currently sit in the My Drive root, in an `Inbox folders` folder, or in the
+   top level of a `Shared folders` folder marked `top level swept: yes`.
+   Location decides, not dates: moving a file in Drive leaves its timestamps
+   unchanged. A folder moves only under a Backlog line or a rule that names
+   it.
    `ORGANIZE.md` is never a candidate. Read a file's content whenever its title
    alone cannot place it.
    - Matches a `confirmed` rule → apply it.
@@ -115,7 +117,8 @@ survey saw.
 
    Done when every candidate is acted on or held.
 
-4. **Save, log, and report.** Add this run's log entry, save `ORGANIZE.md`,
+4. **Save, log, and report.** Add this run's log entry, drop log entries
+   older than 30 days (harvest never reads them), save `ORGANIZE.md`,
    then report counts moved, renamed, trashed, and held; reversals learned
    from; the open questions; and a link to `ORGANIZE.md`. In a scheduled run,
    notify the user only when something changed or a new question needs them; a

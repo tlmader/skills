@@ -70,9 +70,9 @@ Verify authenticated Notion capabilities for:
 
 Use the runtime's Notion integration; where it lacks an operation, use an
 already-authenticated official Notion API or CLI. The public API cannot create
-a native status property: when no route can, ask the user to add `Status` by
-hand with Notion's default options, verify it, and continue. Halt before
-writing unless every other capability is available. Credentials stay in the runtime's secret store.
+a native status property; when no route can, plan for the hand step in step 3
+pass 1. Halt before writing unless every other capability is available.
+Credentials stay in the runtime's secret store.
 
 For an existing page, inspect child databases and linked database views. An
 `Issues` or Wayfinder tracker, a `Documents` or source-grounded reference
@@ -93,7 +93,10 @@ Create a database named `Issues` under the project page, applying every
 invariant in the tracker contract. Build in passes, because self-relations need
 the new data source's identity:
 
-1. Create the database and its non-relational properties.
+1. Create the database and its non-relational properties. When no route can
+   create the native `Status` property, pause here: ask the user to add
+   `Status` by hand with Notion's default options, verify it on read-back,
+   and continue.
 2. Add the self-relations and their reciprocal properties.
 3. Configure the generated view as `Maps` or remove it, create the remaining
    named views, and place `Maps` first.
