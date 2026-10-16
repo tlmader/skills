@@ -58,15 +58,15 @@ is missing, add it on this run's save.
 returns several, use the most recently modified one, and trash the others after
 this run's first save succeeds.
 
-**Writing:** save at the end of each step (in create-only mode, once at the end
-of the run, so the file the user may have open is replaced only once), with that step's rows added under
-this run's log entry, so a run that fails midway still records what it did.
-Refetch `ORGANIZE.md` before each save and merge any edits the user made since
-the last read (answers, Backlog lines, rule changes). Overwrite the content in
-place when the connector can. When it can only create files, create a new
-`ORGANIZE.md` in the My Drive root as plain `text/markdown` with conversion to
-a Google Doc turned off, confirm it exists, then trash the previous copy by its
-ID.
+**Writing:** save at the end of each step that changed something, with that
+step's rows added under this run's log entry, so a run that fails midway still
+records what it did. Refetch `ORGANIZE.md` before each save and merge any edits
+the user made since the last read (answers, Backlog lines, rule changes).
+Overwrite the content in place when the connector can. When it can only create
+files, create a new `ORGANIZE.md` in the My Drive root as plain
+`text/markdown` with conversion to a Google Doc turned off, confirm it exists,
+then trash the previous copy by its ID; each such save replaces the file,
+which is the price of a durable record.
 
 ### First run
 

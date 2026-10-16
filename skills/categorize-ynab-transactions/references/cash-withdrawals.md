@@ -26,10 +26,11 @@ unchanged events considered for `keep`.
    already in hand before asking for more. Record the fee status as evidenced
    positive, evidenced zero, or unknown:
    - **Same currency**: the statement or issuer activity is the evidence. A
-     debit that is a dispensable amount (a multiple of the smallest note, such
-     as 20.00) with no fee line for it has an evidenced zero fee, and the
-     debit is the cash withdrawn. A debit like 103.50 has a fee folded in:
-     the fee is unknown until a receipt or itemized statement shows it.
+     debit that is a multiple of the smallest note ATMs dispense in that
+     currency (20.00 for most US ATMs), with no fee line for it, has an
+     evidenced zero fee, and the debit is the cash withdrawn. Any other debit,
+     like 43.00 or 103.50, may have a surcharge folded in: the fee is unknown
+     until a receipt or itemized statement shows it.
    - **Foreign currency**: a missing fee line, a matching transfer pair, a
      typical ATM fee, or an exchange-rate residual establishes neither zero
      nor an amount; the fee needs a receipt or an itemized statement.
