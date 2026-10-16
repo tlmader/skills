@@ -22,16 +22,20 @@ unchanged events considered for `keep`.
 
 1. **Gather evidence.** Establish the cash received, local date, conversion
    rate and source, actual bank debit, and itemized fees from receipts, issuer
-   activity, statements, exports, or other direct evidence. When cash and
-   debit share a currency and the debit equals the cash withdrawn, with no
-   fee line, the fee is evidenced zero. Reuse evidence
+   activity, statements, exports, or other direct evidence. Reuse evidence
    already in hand before asking for more. Record the fee status as evidenced
-   positive, evidenced zero, or unknown. Missing fee lines, a matching transfer
-   pair, a typical ATM fee, or an exchange-rate residual establish neither zero
-   nor an amount. A rebate alone proves neither the original charge nor which
-   withdrawal it belongs to. A best-guess estimate the user explicitly asked
-   for, written with an `Est.` memo (see `using-ynab`), counts as the user's
-   evidence: the event can pass, reported as passed on an estimate.
+   positive, evidenced zero, or unknown:
+   - **Same currency**: the statement or issuer activity is the evidence. A
+     withdrawal debit with no fee line for it on that statement or activity
+     has an evidenced zero fee, and the debit is the cash withdrawn.
+   - **Foreign currency**: a missing fee line, a matching transfer pair, a
+     typical ATM fee, or an exchange-rate residual establishes neither zero
+     nor an amount; the fee needs a receipt or an itemized statement.
+
+   A rebate alone proves neither the original charge nor which withdrawal it
+   belongs to. A best-guess estimate the user explicitly asked for, written
+   with an `Est.` memo (see `using-ynab`), counts as the user's evidence: the
+   event can pass, reported as passed on an estimate.
 2. **Resolve existing entries.** Read both transfer sides and every split,
    including approved counterparts as read-only evidence. Match references,
    dates, amounts, accounts, and descriptors; inspect nearby separately posted
@@ -39,10 +43,8 @@ unchanged events considered for `keep`.
    to the debit is a sweep, not a second inflow). Repair an existing event in
    place, keeping IDs and links wherever the API allows; an existing
    counterpart is expected. Adding an included-fee split to a linked transfer
-   converts it into a split, which replaces the counterpart with a new ID:
-   take that step only with the go-ahead `using-ynab` requires for converting
-   a linked transfer. An existing split cannot be edited, so an event whose
-   fix needs one changed is blocked. Create a missing leg only after
+   and editing an existing split follow `using-ynab`'s Splits rules; an event
+   whose fix those rules forbid is blocked. Create a missing leg only after
    confirming it is absent and how the API creates counterparts. Unresolved
    duplicates block the event.
 3. **Reconcile amounts.** Let `P` be the evidenced cash principal in budget

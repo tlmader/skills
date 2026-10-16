@@ -96,12 +96,9 @@ Classify structure before purpose:
   splits keep their economic structure.
 - A suspected duplicate stays as it is until its identity is resolved; a
   confirmed duplicate is `remove`.
-- An existing split stays as it is: the API cannot update its
-  subtransactions. When one needs a change, mark it `skip` with that blocker.
-- Converting a linked transfer into a split replaces its counterpart with a
-  new ID. Treat it as a structural change: do it only with the go-ahead
-  `using-ynab` requires, then verify the destination account holds exactly one
-  counterpart.
+- Splits, including converting a linked transfer into one, follow
+  `using-ynab`'s Splits rules. An item whose fix those rules forbid is `skip`
+  with that blocker.
 
 Resolve merchant identity from this **evidence ladder**, highest first: the
 user's current statement or receipt; an explicit project rule; consistent

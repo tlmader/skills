@@ -6,16 +6,17 @@ license: MIT
 
 # Organize Google Drive
 
-One run of a daily **loop**. Each run turns the user's corrections since the
-last run into **lessons**, clears the approved **backlog**, then organizes new
-files by the **rulebook**. The rulebook is the single source of truth for the
-user's preferences, and the user can edit it directly.
+One run of a daily **loop**. Each run turns the user's corrections into
+**lessons**, clears the approved **backlog**, then organizes loose files by
+the **rulebook**. The rulebook is the single source of truth for the user's
+preferences, and the user can edit it directly.
 
 ## Requirements
 
-A Google Drive connector that can search, read file content and metadata,
-move, rename, trash, and create files. When it cannot overwrite a file's
-content in place, the save step below covers the fallback.
+A Google Drive connector that can search, list folders, read file content and
+metadata (including sharing), create folders, move, rename, trash, and create
+files. When it cannot overwrite a file's content in place, the save fallback
+below covers it.
 
 ## State
 
@@ -27,9 +28,11 @@ Sections, in order:
 
 - `Rules`: one per line, `[confirmed|trial n/3] <when> → <action>  (evidence:
   <why>)`.
-- `Shared folders`: one line per **boundary** folder, `- <name> (<folder id>) —
-  top level swept: yes|no`. Other people can see a boundary folder, so moving
-  a file in shares it and moving it out revokes their access.
+- `Shared folders`: one line per **boundary**, `- <name> (<folder id>) — top
+  level swept: yes|no`. A boundary is a folder the user owns whose sharing
+  differs from its parent's: the point where other people's access starts or
+  changes. Its subfolders that inherit that sharing sit inside the same
+  boundary. Moving a file across a boundary changes who can see it.
 - `Inbox folders`: one line per folder, `- <name> (<folder id>)`. Their
   contents are organized like loose root files; trash a listed folder once it
   is empty and remove its line.
@@ -37,114 +40,115 @@ Sections, in order:
   listed here are pre-approved.
 - `Questions`: numbered, at most 5 open. Further questions wait in a `Queued`
   list below them and move up, oldest first, as slots free. Group files that
-  share a best guess into one question. Each run queues one question about a
-  `top level swept: no` folder that has no open or queued question yet:
-  should its loose top-level files be organized? The answer sets the flag.
+  share a best guess into one question, and never queue a second question
+  about the same file or folder.
 - `Log`: one entry per run, newest first: a `### <start date and time, with
-  timezone> — <summary>` heading,
-  one or two lines of prose, then a table with columns `file id | title | old
-  parent | new parent | old title | new title | rule | reversed`. Trash
-  actions put `TRASH` in the new parent column, and held files put `HELD`
-  there. `reversed` is empty until a reversal is learned, then `yes`.
+  timezone> — <summary>` heading, one or two lines of prose, then a table with
+  columns `file id | title | old parent | new parent | old title | new title |
+  rule | reversed`. Trash actions put `TRASH` in the new parent column, and
+  held files put `HELD` there. `reversed` is empty until a reversal is
+  learned, then `yes`.
 
-When a section is missing, add it on this run's save. Seed a new `Shared
-folders` section from any folder an existing boundary rule already names.
+A file's **latest row** is its newest row across all entries. When a section
+is missing, add it on this run's save.
 
 **Reading:** read the full text of `ORGANIZE.md` by file ID. When the search
 returns several, use the most recently modified one, and trash the others after
-this run's save succeeds.
+this run's first save succeeds.
 
 **Writing:** save at the end of each step, with that step's rows added under
-this run's log entry, so a run that fails midway still records what it did. Refetch `ORGANIZE.md` first and merge any edits the user
-made since the last read (answers, Backlog lines, rule changes) into the save.
-Overwrite the content in place when the connector can. When it can only create files, create a new `ORGANIZE.md` in
-the My Drive root as plain `text/markdown` with conversion to a Google Doc
-turned off, confirm it exists, then trash the previous copy by its ID.
+this run's log entry, so a run that fails midway still records what it did.
+Refetch `ORGANIZE.md` before each save and merge any edits the user made since
+the last read (answers, Backlog lines, rule changes). Overwrite the content in
+place when the connector can. When it can only create files, create a new
+`ORGANIZE.md` in the My Drive root as plain `text/markdown` with conversion to
+a Google Doc turned off, confirm it exists, then trash the previous copy by its
+ID.
 
 ### First run
 
-When no `ORGANIZE.md` exists: survey My Drive (top-level folders, naming
-habits, what sits loose in root, and every folder the user owns that is
-shared with others, at any depth), write
-what you observe as `trial` rules, list the shared folders under `Shared
-folders` with `top level swept: no`, add up to 5 questions, write a log entry
-with the survey summary and no rows, create `ORGANIZE.md`, and end with the
-report. The first run changes nothing else; the next run sweeps the root and
-inbox folders the survey saw.
+When no `ORGANIZE.md` exists, survey My Drive: top-level folders, naming
+habits, what sits loose in root, and every boundary at any depth. Write what
+you observe as `trial` rules, list the boundaries under `Shared folders` with
+`top level swept: no`, add up to 5 questions, write a log entry with the survey
+summary and no rows, create `ORGANIZE.md`, and end with the report. The first
+run changes nothing else.
 
 ## Steps
 
-1. **Harvest lessons.** For every action logged in the last 30 days (Drive's
-   trash window), skipping `HELD` rows and rows marked `reversed`, fetch the
-   file's current metadata.
-   - A **reversal** is a file whose parent or title differs from the latest
-     log row for that file, or a trashed file the user restored. A file
-     logged as `TRASH` is reversed only when it still exists outside the
-     trash; one that is gone (emptied or purged) is not a reversal. Compare
-     against the latest row only: a later run's own move or rename of the
-     file replaces the earlier row and is never a reversal. Each reversal
-     demotes the rule that caused it to `trial 0/3`, even if it was already
-     `confirmed`, and adds a corrected rule capturing where the user put the
-     file instead. Mark the log row `reversed: yes` so it counts once.
+1. **Harvest lessons.** For every row in the log except `HELD` rows and rows
+   already marked `reversed`, compare the file's current parent, title, and
+   trash state with its latest row. Fetch metadata in bulk (one listing per
+   folder the rows name, plus the trash) rather than one call per file.
+   - A **reversal** is a file whose parent or title differs from its latest
+     row, or a file logged as `TRASH` that now exists outside the trash. A
+     file that is gone (trash emptied or purged) is not a reversal, and a later
+     row written by this skill replaces the earlier one, so the skill's own
+     moves never count.
+   - Each reversal demotes the rule that caused it to `trial 0/3`, even if it
+     was `confirmed`, and adds a corrected rule capturing where the user put
+     the file. Mark the row `reversed: yes` and update its new parent and new
+     title to where the user put it.
    - A `trial` rule advances one step per run, not per file, when it acted in
-     the previous run and none of its logged actions are reversed; at `3/3` it
-     becomes `confirmed`. A rule therefore needs three runs without a
-     correction to be confirmed.
+     the previous run and none of its rows are reversed; at `3/3` it becomes
+     `confirmed`. A rule needs three runs without a correction to be
+     confirmed.
    - Each answered question becomes a `confirmed` rule, plus Backlog lines for
-     any specific files it names; delete the question. An answer counts whether
-     the user wrote it under the question in `ORGANIZE.md` or gave it in this
-     session.
+     any specific files it names; delete the question. An answer to a
+     top-level question about a boundary sets its `top level swept` flag. An
+     answer counts whether the user wrote it under the question in
+     `ORGANIZE.md` or gave it in this session.
 
-   Done when every action in the window is checked and every answered
-   question is converted.
+   Done when every row is checked and every answered question is converted.
 
-2. **Clear the backlog.** Do every Backlog line (moves, renames, trashes,
-   folder creation). First check each file still exists where the line expects;
-   if not, skip the line and add a question about it. Remove each line once
-   done.
+2. **Clear the backlog.** Do every Backlog line (folder creation, moves,
+   renames, trashes). First check each file still exists where the line
+   expects; if not, skip the line and add a question about it. Remove each
+   line once done.
 
-3. **Sweep.** First refresh `Shared folders`: add any folder the user owns,
-   at any depth, that is now shared with others, as `top level swept: no`.
-   Candidates are all files, not folders, the user owns that
-   currently sit in the My Drive root, in an `Inbox folders` folder, or in the
-   top level of a `Shared folders` folder marked `top level swept: yes`.
-   Location decides, not dates: moving a file in Drive leaves its timestamps
-   unchanged. A file this skill already placed where it now sits, with its
-   logged title and no reversal, is settled and not a candidate. A folder moves only under a Backlog line or a rule that names
-   it.
-   `ORGANIZE.md` is never a candidate. Read a file's content whenever its title
-   alone cannot place it.
+3. **Sweep.** First refresh `Shared folders`: add any new boundary, at any
+   depth, as `top level swept: no`, and queue one question asking whether its
+   loose top-level files should be organized.
+
+   Candidates are files, not folders, that the user owns and that sit in the
+   My Drive root, in an `Inbox folders` folder, or in the top level of a
+   boundary marked `top level swept: yes`. Location decides, not dates: moving
+   a file in Drive leaves its timestamps unchanged. A file is **settled**, and
+   not a candidate, while it sits where and as its latest row places it, by
+   this skill or (for a reversed row) by the user. `ORGANIZE.md` is never a
+   candidate. Read a file's content whenever its title alone cannot place it.
    - Matches a `confirmed` rule → apply it.
    - Matches a `trial` rule → apply it to at most 3 files per rule per run.
-     Files over the cap are logged `HELD` with the rule's name and retried
-     next run. A `trial` rule whose action is trash holds its files and asks one
+     Files over the cap are logged `HELD` with the rule's name and retried next
+     run. A `trial` rule whose action is trash holds its files and queues one
      question listing them instead; answering it confirms the rule.
    - No rule, or two rules disagree → **hold**: leave the file, log it as
-     `HELD`, and add a question naming it and your best guess (queued when
-     slots are full). A file whose latest row is already `HELD` stays held
-     without a new row, and gets a question only when it has none yet; once a
-     rule matches it, apply the rule.
+     `HELD`, and queue a question naming it and your best guess. A file whose
+     latest row is already `HELD` stays held without a new row; once a rule
+     matches it, apply the rule.
 
-   Done when every candidate is acted on or held.
+   A folder moves only under a Backlog line or a rule that names it. Done when
+   every candidate is acted on or held.
 
-4. **Log and report.** Complete this run's log entry, drop log rows older
-   than 30 days except rows for files still sitting where they were placed in
-   a swept location (those rows mark the files settled), save `ORGANIZE.md`,
-   then report counts moved, renamed, trashed, and held; reversals learned
-   from; the open questions; and a link to `ORGANIZE.md`. In a scheduled run,
-   notify the user only when something changed or a new question needs them; a
-   run with no actions and no new questions stays silent.
+4. **Prune and report.** Drop log rows older than 30 days unless they are the
+   latest row of a file that still sits in the root, an inbox folder, or a
+   swept boundary's top level (those rows keep it settled or held). Save, then
+   report counts moved, renamed, trashed, and held; reversals learned from;
+   the open questions; and a link to `ORGANIZE.md`. In a scheduled run, notify
+   the user only when something changed or a new question needs them; a run
+   with no actions and no new questions stays silent.
 
 ## Guardrails
 
-Actions are folder creation, moves, renames, and trash only. Drive trash
-(recoverable for 30 days) is the only way to remove a file, and only under a `confirmed` rule, a
+Actions are folder creation, moves, renames, and trash only. Work only on files
+the user owns, and leave their sharing as found. Drive trash (recoverable for
+30 days) is the only way to remove a file, and only under a `confirmed` rule, a
 Backlog line, for an empty folder listed under `Inbox folders`, or for a
-superseded copy of `ORGANIZE.md` as the State section describes. Files stay in the user's Drive with their sharing as found. Work
-only on files the user owns.
+superseded copy of `ORGANIZE.md`.
 
-A file crossing the edge of any `Shared folders` folder, in either direction,
-is held even under a `confirmed` rule, unless a Backlog line or a confirmed
-rule names that exact file or group of files. Each such hold adds one question
-proposing the move (grouping files that share a destination); a yes becomes a
-Backlog line.
+A move that crosses a boundary, in either direction, is held even under a
+`confirmed` rule, unless a Backlog line or a confirmed rule names that exact
+file or group of files. Moves within one boundary, including into its
+inheriting subfolders, are not crossings. Each crossing hold queues one
+question proposing the move (grouping files that share a destination); a yes
+becomes a Backlog line.
