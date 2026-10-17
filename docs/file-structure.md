@@ -6,9 +6,9 @@ This document describes the layout of `tlmader/skills`.
 
 | Path | Purpose |
 | --- | --- |
-| `.claude-plugin/marketplace.json` | Claude Code marketplace manifest. It lists the `tlmader` plugin. |
-| `plugins/tlmader/.claude-plugin/plugin.json` | The `tlmader` plugin's manifest. |
-| `plugins/tlmader/skills/<name>/` | Repository-owned skills, shipped in the `tlmader` plugin. Each folder holds a `SKILL.md` whose frontmatter `name:` matches the folder name. |
+| `.claude-plugin/marketplace.json` | Claude Code marketplace manifest. It lists the `household` plugin. |
+| `plugins/household/.claude-plugin/plugin.json` | The `household` plugin's manifest. |
+| `plugins/household/skills/<name>/` | Repository-owned skills, shipped in the `household` plugin. Each folder holds a `SKILL.md` whose frontmatter `name:` matches the folder name. |
 | `.agents/skills/<name>/` | Committed project-local third-party skills, restored with `pnpm skills:install`. |
 | `.claude/skills/<name>` | Committed relative symlinks into `../../.agents/skills/<name>` for Claude Code. |
 | `.claude/settings.json` | Claude Code project settings. Its `SessionStart` hook runs `scripts/worktree-setup.sh`. |
@@ -29,7 +29,7 @@ This document describes the layout of `tlmader/skills`.
 ## Skill layout
 
 ```text
-plugins/tlmader/skills/
+plugins/household/skills/
 └── <name>/
     ├── SKILL.md
     ├── references/       # material only some runs need, linked from SKILL.md
