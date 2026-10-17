@@ -12,6 +12,15 @@
       "name": "tlmader",
       "description": "Budgeting with YNAB, savings research, Google Drive organizing, free game giveaways, and Notion journals and trackers",
       "source": "./plugins/tlmader"
+    },
+    {
+      "name": "team",
+      "description": "Patina Project's team skills, re-exported from patinaproject/skills at its latest default branch",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/patinaproject/skills.git",
+        "path": "plugins/team"
+      }
     }
   ]
 }

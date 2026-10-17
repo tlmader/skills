@@ -12,6 +12,14 @@ In Claude Code, add this repository as a plugin marketplace and install the
 /plugin install tlmader@tlmader-skills
 ```
 
+The marketplace also re-exports the `team` plugin from
+[patinaproject/skills](https://github.com/patinaproject/skills), always at
+its latest default branch, so one marketplace covers both:
+
+```text
+/plugin install team@tlmader-skills
+```
+
 Or install individual skills for any agent with the
 [skills CLI](https://github.com/vercel-labs/skills):
 
