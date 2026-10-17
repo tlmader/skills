@@ -9,9 +9,9 @@
   },
   "plugins": [
     {
-      "name": "tlmader",
+      "name": "household",
       "description": "Budgeting with YNAB, savings research, Google Drive organizing, free game giveaways, and Notion journals and trackers",
-      "source": "./plugins/tlmader"
+      "source": "./plugins/household"
     },
     {
       "name": "team",

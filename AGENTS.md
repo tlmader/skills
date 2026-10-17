@@ -5,9 +5,9 @@
 This repository is a personal collection of agent skills for Claude Code and
 Codex.
 
-- `plugins/tlmader/skills/<name>/SKILL.md`: repository-owned skills, one
-  folder per skill, shipped in the `tlmader` plugin
-- `plugins/tlmader/.claude-plugin/plugin.json` and
+- `plugins/household/skills/<name>/SKILL.md`: repository-owned skills, one
+  folder per skill, shipped in the `household` plugin
+- `plugins/household/.claude-plugin/plugin.json` and
   `.claude-plugin/marketplace.json`: the Claude Code plugin and the
   marketplace that lists it
 - `.agents/skills/<name>/`: committed project-local third-party skills, restored
@@ -64,7 +64,7 @@ lazily when useful. See `docs/agents/domain.md`.
 - `pnpm commit`: create a guided conventional commit with issue tagging
 - `pnpm exec commitlint --edit <path>`: validate commit messages manually
 - `pnpm lint:md`: lint all Markdown files with `markdownlint-cli2`
-- `find plugins/tlmader/skills -mindepth 2 -maxdepth 2 -name SKILL.md | sort`: list skill entry
+- `find plugins/household/skills -mindepth 2 -maxdepth 2 -name SKILL.md | sort`: list skill entry
   points
 
 ## Coding Style & Naming Conventions
@@ -77,7 +77,7 @@ lazily when useful. See `docs/agents/domain.md`.
 
 ## Working on skills
 
-When creating or editing a skill under `plugins/tlmader/skills/`, review it with the
+When creating or editing a skill under `plugins/household/skills/`, review it with the
 `writing-for-agents` skill for trigger descriptions, a concise `SKILL.md`, and
 when to split reference material into separate files. Install it if missing:
 
