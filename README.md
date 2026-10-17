@@ -1,8 +1,10 @@
 # skills
 
-Personal collection of agent skills for Claude Code and Codex.
+Personal collection of agent skills for Claude Code, Grok, and Codex.
 
 ## Install
+
+### Claude Code
 
 In Claude Code, add this repository as a plugin marketplace and install the
 `household` plugin, which carries every skill below:
@@ -19,6 +21,34 @@ its latest default branch, so one marketplace covers both:
 ```text
 /plugin install team@tlmader-skills
 ```
+
+### Grok Build
+
+Grok Build reads Claude Code marketplaces, so the same repository works:
+
+```sh
+grok plugin marketplace add tlmader/skills
+grok plugin install household@skills
+grok plugin install team@skills
+```
+
+Grok names the marketplace after the repository (`skills`), not the manifest.
+
+### Grok Bot
+
+Grok Bot installs plugins from a Cursor team marketplace (Cursor Teams and
+Enterprise plans). An admin adds it under **Dashboard → Plugins & MCPs → Team
+Marketplaces → Add Marketplace → Import from Repo** with
+`https://github.com/tlmader/skills`; the `household` plugin then appears in
+Grok Bot under **Connect apps**. Cursor marketplaces only list plugins stored
+in the same repository, so `team` is not offered there.
+
+Without a team marketplace, ask a Bot to save a skill from its `SKILL.md`, for
+example: "Save
+`https://github.com/tlmader/skills/blob/main/plugins/household/skills/find-savings/SKILL.md`
+as a skill called find-savings."
+
+### Other agents
 
 Or install individual skills for any agent with the
 [skills CLI](https://github.com/vercel-labs/skills):

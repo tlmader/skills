@@ -6,8 +6,10 @@ This document describes the layout of `tlmader/skills`.
 
 | Path | Purpose |
 | --- | --- |
-| `.claude-plugin/marketplace.json` | Claude Code marketplace manifest. It lists the `household` plugin. |
-| `plugins/household/.claude-plugin/plugin.json` | The `household` plugin's manifest. |
+| `.claude-plugin/marketplace.json` | Claude Code marketplace manifest, also read by Grok Build. It lists the `household` and `team` plugins. |
+| `.cursor-plugin/marketplace.json` | Cursor marketplace manifest, used by Grok Bot team marketplaces. It lists the `household` plugin. |
+| `plugins/household/.claude-plugin/plugin.json` | The `household` plugin's manifest for Claude Code and Grok Build. |
+| `plugins/household/.cursor-plugin/plugin.json` | The `household` plugin's manifest for Cursor and Grok Bot. |
 | `plugins/household/skills/<name>/` | Repository-owned skills, shipped in the `household` plugin. Each folder holds a `SKILL.md` whose frontmatter `name:` matches the folder name. |
 | `.agents/skills/<name>/` | Committed project-local third-party skills, restored with `pnpm skills:install`. |
 | `.claude/skills/<name>` | Committed relative symlinks into `../../.agents/skills/<name>` for Claude Code. |
