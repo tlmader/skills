@@ -70,7 +70,6 @@ and the settings you can give it.
 | [`categorize-ynab-transactions`](plugins/household/skills/categorize-ynab-transactions/SKILL.md) | Categorize unapproved YNAB transactions and verify full coverage without approving anything | YNAB; `using-ynab` for writes |
 | [`using-ynab`](plugins/household/skills/using-ynab/SKILL.md) | Update, split, or delete YNAB transactions through the official API | YNAB |
 | [`find-savings`](plugins/household/skills/find-savings/SKILL.md) | Find and track ranked savings on bills, subscriptions, and spending | Transaction data, web |
-| [`organize-google-drive`](plugins/household/skills/organize-google-drive/SKILL.md) | Organize Drive with a rulebook that learns from your corrections | Google Drive |
 | [`free-game-findings`](plugins/household/skills/free-game-findings/SKILL.md) | Find and claim free-to-keep game giveaways | Web, browser |
 | [`uploading-photos-to-notion`](plugins/household/skills/uploading-photos-to-notion/SKILL.md) | Upload photos to Notion as durable images beside their text | Notion |
 | [`setup-journal-project`](plugins/household/skills/setup-journal-project/SKILL.md) | Set up a Notion journal and the instructions that keep it | Notion, `uploading-photos-to-notion` |
@@ -78,6 +77,9 @@ and the settings you can give it.
 
 `setup-journal-project` and `setup-wayfinder-project` run only when you invoke
 them by name.
+
+To organize Google Drive or other cloud storage, use `cloud-storage-organizer`
+from the `team` plugin.
 
 ## Conventions
 
