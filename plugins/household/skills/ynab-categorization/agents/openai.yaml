@@ -1,0 +1,14 @@
+interface:
+  display_name: YNAB Categorization
+  short_description: Categorize YNAB imports and learn from your corrections, without approving them
+  default_prompt: Use $ynab-categorization to categorize unapproved transactions in my
+    YNAB budget, following and updating its memory in Agents/YNAB categorization.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

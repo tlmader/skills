@@ -67,7 +67,7 @@ and the settings you can give it.
 
 | Skill | What it does | Needs |
 | --- | --- | --- |
-| [`categorize-ynab-transactions`](plugins/household/skills/categorize-ynab-transactions/SKILL.md) | Categorize unapproved YNAB transactions and verify full coverage without approving anything | YNAB; `using-ynab` for writes |
+| [`ynab-categorization`](plugins/household/skills/ynab-categorization/SKILL.md) | Categorize unapproved YNAB transactions without approving them, learning from your corrections in `Agents/YNAB categorization` | YNAB, cloud storage; `using-ynab` for writes |
 | [`using-ynab`](plugins/household/skills/using-ynab/SKILL.md) | Update, split, or delete YNAB transactions through the official API | YNAB |
 | [`find-savings`](plugins/household/skills/find-savings/SKILL.md) | Find and track ranked savings on bills, subscriptions, and spending | Transaction data, web |
 | [`free-game-findings`](plugins/household/skills/free-game-findings/SKILL.md) | Find and claim free-to-keep game giveaways | Web, browser |
