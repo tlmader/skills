@@ -1,6 +1,6 @@
 # Memory templates
 
-Create the `Agents/YNAB categorizer/` folder in the user's cloud storage, then
+Create the `Agents/YNAB categorization/` folder in the user's cloud storage, then
 each missing document below inside it. Use the storage's native editable
 document format where it has one, and keep every `##` heading, which the skill
 uses to find each section. Keep each item a single line or a nested bullet:
@@ -13,9 +13,9 @@ The user owns every section except `## Learned`. The settings below are
 starting suggestions; the user changes them.
 
 ```markdown
-# YNAB categorizer rules
+# YNAB categorization rules
 
-Read on every ynab-categorizer run. Edit Settings, Rules, and Accounts freely.
+Read on every ynab-categorization run. Edit Settings, Rules, and Accounts freely.
 The skill writes only Learned. Edit, delete, or move any Learned line into
 Rules. The categorizer never approves a transaction: approving is your review.
 
@@ -64,7 +64,7 @@ A Learned line names the date, the rule, and the evidence:
 ## `Questions`
 
 ```markdown
-# YNAB categorizer questions
+# YNAB categorization questions
 
 Write your answer after "Answer:". The next run turns it into a Learned rule
 and applies it.
@@ -86,9 +86,9 @@ A question names its transactions, its best guess, and an empty answer line:
 ## `Changes`
 
 ```markdown
-# YNAB categorizer changes
+# YNAB categorization changes
 
-Managed by ynab-categorizer. Do not edit. Settled and reversed lines older
+Managed by ynab-categorization. Do not edit. Settled and reversed lines older
 than 60 days are removed.
 
 ## Changes

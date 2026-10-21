@@ -1,10 +1,10 @@
 ---
-name: ynab-categorizer
-description: Categorize unapproved YNAB transactions, resolve merchants, repair supported transaction structure, and verify full coverage without approving anything, steered by an `Agents/YNAB categorizer` folder in the user's cloud storage that holds their rules, rules learned from their corrections, open questions, and a record of what earlier runs changed, so it can run unattended on a schedule. Use for manual, scheduled, or read-only categorization runs.
+name: ynab-categorization
+description: Categorize unapproved YNAB transactions, resolve merchants, repair supported transaction structure, and verify full coverage without approving anything, steered by an `Agents/YNAB categorization` folder in the user's cloud storage that holds their rules, rules learned from their corrections, open questions, and a record of what earlier runs changed, so it can run unattended on a schedule. Use for manual, scheduled, or read-only categorization runs.
 license: MIT
 ---
 
-# YNAB Categorizer
+# YNAB Categorization
 
 Finish every eligible unapproved regular transaction. A write run succeeds only
 when each item is categorized, intentionally categoryless because of its
@@ -36,9 +36,9 @@ run it on any cadence; the cadence belongs to the schedule.
   balances, a card-activity connector with merchant metadata (statement
   descriptors, MCCs), receipts, statements, and web search.
 
-## Memory: the YNAB categorizer folder
+## Memory: the YNAB categorization folder
 
-Memory is three editable documents in `Agents/YNAB categorizer/` in the
+Memory is three editable documents in `Agents/YNAB categorization/` in the
 user's cloud storage. [references/memory-templates.md](references/memory-templates.md)
 holds their starting content and line formats.
 
