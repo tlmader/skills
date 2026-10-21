@@ -17,7 +17,7 @@ starting suggestions; the user changes them.
 
 Read on every ynab-categorization run. Edit Settings, Rules, and Accounts freely.
 The skill writes only Learned. Edit, delete, or move any Learned line into
-Rules. The categorizer never approves a transaction: approving is your review.
+Rules. This skill never approves a transaction: approving is your review.
 
 ## Settings
 
