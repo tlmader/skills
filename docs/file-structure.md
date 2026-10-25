@@ -9,6 +9,8 @@ This document describes the layout of `tlmader/skills`.
 | `.claude-plugin/marketplace.json` | Claude Code marketplace manifest, also read by Grok Build. It lists the `household` plugin and re-exports `work` from patinaproject/skills. |
 | `.cursor-plugin/marketplace.json` | Cursor marketplace manifest, also used by Grok Bot. It lists the `household` and `work` plugins. |
 | `plugins/household/.claude-plugin/plugin.json` | The `household` plugin's manifest for Claude Code and Grok Build. |
+| `.agents/plugins/marketplace.json` | Codex marketplace manifest. It lists the `household` plugin and re-exports `work` from patinaproject/skills. |
+| `plugins/household/.codex-plugin/plugin.json` | The `household` plugin's manifest for Codex, including its display name and descriptions. |
 | `plugins/household/.cursor-plugin/plugin.json` | The `household` plugin's manifest for Cursor and Grok Bot. |
 | `plugins/work/` | A copy of patinaproject/skills' Work plugin for Cursor, with a generated `.cursor-plugin/plugin.json` and the upstream commit in `UPSTREAM`. Refresh it with `scripts/sync-work-plugin.sh`; never edit it by hand. |
 | `plugins/household/skills/<name>/` | Repository-owned skills, shipped in the `household` plugin. Each folder holds a `SKILL.md` whose frontmatter `name:` matches the folder name. |

@@ -1,0 +1,35 @@
+{
+  "name": "tlmader-skills",
+  "interface": {
+    "displayName": "tlmader"
+  },
+  "plugins": [
+    {
+      "name": "household",
+      "source": {
+        "source": "local",
+        "path": "./plugins/household"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity",
+      "description": "Budgeting with YNAB, savings research, free game giveaways, and Notion journals and trackers."
+    },
+    {
+      "name": "work",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/patinaproject/skills.git",
+        "path": "plugins/work"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity",
+      "description": "Patina Project's work skills, re-exported from patinaproject/skills at its latest default branch."
+    }
+  ]
+}

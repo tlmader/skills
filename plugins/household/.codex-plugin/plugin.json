@@ -1,0 +1,33 @@
+{
+  "name": "household",
+  "version": "0.1.0",
+  "description": "Budgeting with YNAB, savings research, free game giveaways, and Notion journals and trackers.",
+  "author": {
+    "name": "tlmader",
+    "url": "https://github.com/tlmader"
+  },
+  "homepage": "https://github.com/tlmader/skills",
+  "repository": "https://github.com/tlmader/skills",
+  "license": "MIT",
+  "keywords": [
+    "ynab",
+    "budgeting",
+    "notion",
+    "journal",
+    "games"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Household",
+    "shortDescription": "Budgeting, savings, free games, and Notion journals for home life",
+    "longDescription": "Household collects skills for running a home: categorize YNAB transactions and learn from your corrections, find savings on bills and subscriptions, claim free-to-keep game giveaways, and keep Notion journals and trackers with their photos.",
+    "developerName": "tlmader",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/tlmader/skills"
+  }
+}
