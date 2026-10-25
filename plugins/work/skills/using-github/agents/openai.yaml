@@ -1,0 +1,4 @@
+interface:
+  display_name: "Using GitHub"
+  short_description: "Handle GitHub forge and PR work"
+  default_prompt: "Use $using-github for this repository's pull-request, review, check, release, or forge operation."

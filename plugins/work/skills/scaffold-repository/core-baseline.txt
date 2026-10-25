@@ -1,0 +1,71 @@
+# Core baseline manifest for scaffold-repository.
+#
+# The single machine-readable list of files every scaffolded repository must
+# carry. `scripts/verify-baseline.sh` reads this file, so the self-test and the
+# documented baseline can never drift apart.
+#
+# One repository-relative path per line. Blank lines and `#` comments are
+# ignored. A trailing marker narrows the requirement:
+#
+#   [public]              emitted only for public repositories
+#   [symlink -> TARGET]   must be a symlink whose link text is TARGET
+#
+# The tracker adapter is one file with two names. `docs/agents/` holds the real
+# file, matching the upstream mattpocock skill family that writes and reads it;
+# `docs/issue-tracker.md` is the compatibility symlink. The pair must always
+# resolve to one file - two real copies drift.
+#
+# Which side is real rests entirely on the `[symlink -> ...]` marker below: the
+# plain entry is checked with `-e`, which follows symlinks, so the marker is the
+# only thing pinning the direction. Move the marker and you move the layout.
+#
+# This manifest is not the complete `docs/agents/` layout. The adapter's Labels
+# section is required only when the `triage` skill is vendored, and the marker
+# grammar has no conditional for that, so it is declared in `audit-checklist.md` (Area 3)
+# and verified by the audit rather than here.
+#
+# Marketplace maintenance verifiers (dogfood, marketplace, scaffold-cleanup,
+# workflow-cleanup) are deliberately absent: a generic consumer repo does not
+# receive them.
+
+.claude/settings.json
+.codex/config.toml
+.codex/environments/environment.toml
+.editorconfig
+.github/CODEOWNERS
+.github/actionlint.yaml
+.github/ISSUE_TEMPLATE/config.yml
+.github/pull_request_template.md
+.github/workflows/actions.yml
+.github/workflows/markdown.yml
+.github/workflows/pull-request.yml
+.gitattributes
+.gitignore
+.husky/commit-msg
+.husky/pre-commit
+.lintstagedrc.js
+.markdownlint-cli2.jsonc
+.markdownlint.jsonc
+.mcp.json
+.nvmrc
+AGENTS.md
+CHANGELOG.md
+CLAUDE.md
+CONTRIBUTING.md
+LICENSE
+README.md
+SECURITY.md [public]
+commitizen.config.json
+commitlint.config.js
+docs/agents/domain.md
+docs/agents/issue-tracker.md
+docs/file-structure.md
+docs/issue-publishing.md
+docs/issue-tracker.md [symlink -> agents/issue-tracker.md]
+docs/release-flow.md
+docs/wiki-index.md
+package.json
+pnpm-lock.yaml
+scripts/clean.sh
+scripts/worktree-setup.sh
+skills-lock.json

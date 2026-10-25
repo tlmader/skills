@@ -1,0 +1,70 @@
+name: Sync Work plugin
+
+# Cursor marketplaces list only plugins stored in this repository, so
+# plugins/work is a copy of patinaproject/skills' Work plugin. This refreshes
+# the copy daily and opens (or updates) one pull request when it changed.
+on:
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: sync-work
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Sync Work plugin
+    runs-on: ubuntu-latest
+    env:
+      BRANCH: sync-work
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      # actions/checkout@v4.3.1
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+
+      - name: Copy the upstream plugin
+        id: copy
+        run: |
+          sha="$(bash scripts/sync-work-plugin.sh)"
+          echo "sha=${sha:0:7}" >> "$GITHUB_OUTPUT"
+          if [ -z "$(git status --porcelain -- plugins/work)" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Open or update the sync pull request
+        if: steps.copy.outputs.changed == 'true'
+        env:
+          SHA: ${{ steps.copy.outputs.sha }}
+        run: |
+          existing="$(gh pr list --head "$BRANCH" --state open --json number,title --jq '.[0] // empty')"
+          if [ -n "$existing" ]; then
+            issue="$(printf '%s' "$existing" | jq -r '.title' | grep -oE '#[0-9]+' | head -1 | tr -d '#')"
+          else
+            url="$(gh issue create \
+              --title "Sync the Work plugin copy with patinaproject/skills" \
+              --body "patinaproject/skills changed its Work plugin. Refresh plugins/work so Cursor installs the latest skills.")"
+            issue="${url##*/}"
+          fi
+          title="feat: #$issue sync work plugin to patinaproject/skills@$SHA"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$BRANCH"
+          git add plugins/work
+          git commit -m "$title"
+          git push --force origin "$BRANCH"
+          body="Closes #$issue
+
+          Refreshes plugins/work from patinaproject/skills@$SHA with scripts/sync-work-plugin.sh."
+          if [ -n "$existing" ]; then
+            gh pr edit "$BRANCH" --title "$title" --body "$body"
+          else
+            gh pr create --head "$BRANCH" --base "${{ github.event.repository.default_branch }}" --title "$title" --body "$body"
+          fi

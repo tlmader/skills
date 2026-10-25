@@ -14,12 +14,12 @@
       "source": "./plugins/household"
     },
     {
-      "name": "team",
-      "description": "Patina Project's team skills, re-exported from patinaproject/skills at its latest default branch",
+      "name": "work",
+      "description": "Patina Project's work skills, re-exported from patinaproject/skills at its latest default branch",
       "source": {
         "source": "git-subdir",
         "url": "https://github.com/patinaproject/skills.git",
-        "path": "plugins/team"
+        "path": "plugins/work"
       }
     }
   ]
