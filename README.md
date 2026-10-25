@@ -53,6 +53,16 @@ example: "Save
 `https://github.com/tlmader/skills/blob/main/plugins/household/skills/find-savings/SKILL.md`
 as a skill called find-savings."
 
+### Codex
+
+```sh
+codex plugin marketplace add tlmader/skills
+codex plugin add household@tlmader-skills
+codex plugin add work@tlmader-skills
+```
+
+Codex installs `work` straight from patinaproject/skills, like Claude Code.
+
 ### Other agents
 
 Or install individual skills for any agent with the
