@@ -14,12 +14,12 @@ In Claude Code, add this repository as a plugin marketplace and install the
 /plugin install household@tlmader-skills
 ```
 
-The marketplace also re-exports the `team` plugin from
+The marketplace also re-exports the `work` plugin from
 [patinaproject/skills](https://github.com/patinaproject/skills), always at
 its latest default branch, so one marketplace covers both:
 
 ```text
-/plugin install team@tlmader-skills
+/plugin install work@tlmader-skills
 ```
 
 ### Grok Build
@@ -29,19 +29,24 @@ Grok Build reads Claude Code marketplaces, so the same repository works:
 ```sh
 grok plugin marketplace add tlmader/skills
 grok plugin install household@skills
-grok plugin install team@skills
+grok plugin install work@skills
 ```
 
 Grok names the marketplace after the repository (`skills`), not the manifest.
 
-### Grok Bot
+### Cursor and Grok Bot
 
-Grok Bot installs plugins from a Cursor team marketplace (Cursor Teams and
-Enterprise plans). An admin adds it under **Dashboard → Plugins & MCPs → Team
-Marketplaces → Add Marketplace → Import from Repo** with
-`https://github.com/tlmader/skills`; the `household` plugin then appears in
-Grok Bot under **Connect apps**. Cursor marketplaces only list plugins stored
-in the same repository, so `team` is not offered there.
+Cursor installs plugins from a team marketplace (Cursor Teams and Enterprise
+plans), and Grok Bot uses the same marketplace. An admin adds it under
+**Dashboard → Plugins & MCPs → Team Marketplaces → Add Marketplace → Import
+from Repo** with `https://github.com/tlmader/skills`. Both `household` and
+`work` then appear in Cursor, and in Grok Bot under **Connect apps**. Turn on
+**Enable Auto Refresh** to pick up changes as they merge.
+
+Cursor marketplaces list only plugins stored in their own repository, so
+`plugins/work` is a copy of upstream's Work plugin. A daily workflow refreshes
+it with `scripts/sync-work-plugin.sh` and opens a pull request when upstream
+changed, so Cursor's copy is current once that pull request merges.
 
 Without a team marketplace, ask a Bot to save a skill from its `SKILL.md`, for
 example: "Save
@@ -79,7 +84,7 @@ and the settings you can give it.
 them by name.
 
 To organize Google Drive or other cloud storage, use `cloud-storage-organizer`
-from the `team` plugin.
+from the `work` plugin.
 
 ## Conventions
 

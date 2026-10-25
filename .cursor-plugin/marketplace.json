@@ -11,6 +11,11 @@
       "name": "household",
       "source": "plugins/household",
       "description": "Budgeting with YNAB, savings research, free game giveaways, and Notion journals and trackers"
+    },
+    {
+      "name": "work",
+      "source": "plugins/work",
+      "description": "Patina Project's work skills, copied from patinaproject/skills and refreshed by a scheduled pull request"
     }
   ]
 }

@@ -6,10 +6,11 @@ This document describes the layout of `tlmader/skills`.
 
 | Path | Purpose |
 | --- | --- |
-| `.claude-plugin/marketplace.json` | Claude Code marketplace manifest, also read by Grok Build. It lists the `household` and `team` plugins. |
-| `.cursor-plugin/marketplace.json` | Cursor marketplace manifest, used by Grok Bot team marketplaces. It lists the `household` plugin. |
+| `.claude-plugin/marketplace.json` | Claude Code marketplace manifest, also read by Grok Build. It lists the `household` plugin and re-exports `work` from patinaproject/skills. |
+| `.cursor-plugin/marketplace.json` | Cursor marketplace manifest, also used by Grok Bot. It lists the `household` and `work` plugins. |
 | `plugins/household/.claude-plugin/plugin.json` | The `household` plugin's manifest for Claude Code and Grok Build. |
 | `plugins/household/.cursor-plugin/plugin.json` | The `household` plugin's manifest for Cursor and Grok Bot. |
+| `plugins/work/` | A copy of patinaproject/skills' Work plugin for Cursor, with a generated `.cursor-plugin/plugin.json` and the upstream commit in `UPSTREAM`. Refresh it with `scripts/sync-work-plugin.sh`; never edit it by hand. |
 | `plugins/household/skills/<name>/` | Repository-owned skills, shipped in the `household` plugin. Each folder holds a `SKILL.md` whose frontmatter `name:` matches the folder name. |
 | `.agents/skills/<name>/` | Committed project-local third-party skills, restored with `pnpm skills:install`. |
 | `.claude/skills/<name>` | Committed relative symlinks into `../../.agents/skills/<name>` for Claude Code. |
@@ -23,6 +24,7 @@ This document describes the layout of `tlmader/skills`.
 | `docs/agents/` | Settings files read by agent skills: the issue-tracker adapter and domain-doc guidance. |
 | `docs/issue-tracker.md` | Compatibility symlink to `agents/issue-tracker.md`. |
 | `scripts/clean.sh` | Removes generated dependency and transient install files. |
+| `scripts/sync-work-plugin.sh` | Copies the Work plugin from patinaproject/skills into `plugins/work`. The `Sync Work plugin` workflow runs it daily. |
 | `scripts/worktree-setup.sh` | Syncs the default branch and installs dependencies in a new worktree. |
 | `skills-lock.json` | Lock file for project-local third-party skills. |
 | `AGENTS.md` | Shared agent workflow contract. `CLAUDE.md` imports it. |

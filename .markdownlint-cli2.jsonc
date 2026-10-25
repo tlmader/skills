@@ -16,6 +16,8 @@
     "CHANGELOG.md",
     // Installed third-party skills follow their own upstream lint config.
     ".agents/skills/**",
-    ".claude/skills/**"
+    ".claude/skills/**",
+    // The Work plugin is copied from patinaproject/skills unchanged.
+    "plugins/work/**"
   ]
 }
