@@ -11,17 +11,18 @@ Every item must hold:
 3. **Out of scope checked.** `.out-of-scope/*.md` was read, and any match is named and addressed. "None match" is a valid result.
 4. **Acceptance criteria and scope boundaries.** Concrete, independently verifiable acceptance criteria are written, and so is what is out of scope.
 5. **No open questions.** The triage notes list nothing still needed.
-6. **Reason it can't be delegated.** For `Ready for human` only: the notes say why an agent can't do it.
+6. **Reason it can't be delegated.** For `Ready for human` only: the notes say why an agent can't do it. An open question is never that reason. It fails item 5.
 7. **Decisions approved.** Every design or naming decision the brief depends on that meets all three ADR criteria is listed in the triage notes, with the person who approved it:
    - **Hard to reverse:** changing your mind later costs something meaningful.
    - **Surprising without context:** a future reader would wonder why it was done this way.
    - **The result of a real trade-off:** there were genuine alternatives.
 
    An agent's recommended answer counts only once a person accepts or overrides it. An agent never approves a decision. "None needed" is a valid result.
+8. **Blockers recorded.** Superseding and blocking issues were checked, and each blocker found is recorded as a native blocked-by relation, or recommended in the triage notes when the run may not write it.
 
 ## Record it
 
-Keep the checklist in the triage notes, so the next session sees what passed and what didn't:
+Keep the checklist in `<identifier> Triage notes`, so the next session sees what passed and what didn't:
 
 ```markdown
 **Readiness check:**
@@ -33,6 +34,7 @@ Keep the checklist in the triage notes, so the next session sees what passed and
 - [ ] No open questions: 1 open
 - [x] Reason it can't be delegated: n/a (Ready for agent)
 - [ ] Decisions approved: 1 awaiting approval
+- [x] Blockers recorded: blocked-by relation to PAT-123 written
 ```
 
 List each qualifying decision under the checklist with its answer and who approved it, or mark it awaiting approval. Record a qualifying decision only here, never under "still needed":
@@ -41,13 +43,13 @@ List each qualifying decision under the checklist with its answer and who approv
 **Decisions:**
 
 - Name the label `Ready for human`, not `Needs human`: approved by @person
-- Store briefs as issue Documents, not comments: awaiting approval
+- Remove the `--legacy` flag instead of deprecating it: awaiting approval
 ```
 
-Write the triage notes and the agent brief through the issue-tracker config's issue-artifact operation. When it defines none, post each as a comment.
+Save `<identifier> Triage notes` and `<identifier> Agent brief` only through the issue-tracker config's **Attach an artifact** operation. `<identifier>` is the tracker's issue reference, such as `PAT-123` or `#123`. When the config defines no such operation, stop before writing anything and ask for a `setup-work-skills` re-run.
 
 ## Outcome
 
-- **Every item holds:** write the agent brief from what the checklist established, then apply the label. When the Type needs no repository change, such as `Task`, the brief names the action to take and how to confirm it is done, not code changes.
-- **An item fails:** do not apply the label. Close each gap you can yourself: reproduce the report, search the codebase, read `.out-of-scope/`. Grill only about the gaps that remain, in the grilling skill's usual format. Ask nothing the checklist already settled. Record the remaining questions under "still needed" in the triage notes. If only the reporter can answer them, apply `Needs info`; otherwise leave `Needs triage`.
+- **Every item holds:** write `<identifier> Agent brief` from what the checklist established, then apply the label. The brief has five core sections: Summary, Current behavior, Desired behavior, Acceptance criteria as a checklist of Given / When / Then items, and Out of scope. Add User stories, Key interfaces, Implementation decisions, Testing decisions, or Further notes only when they carry something the agent needs. It has no Type or Theme line. When the Type needs no repository change, such as `Task`, the brief names the action to take and how to confirm it is done, not code changes.
+- **An item fails:** do not apply the label. Close each gap you can yourself: reproduce the report, search the codebase, read `.out-of-scope/`. Grill only about the gaps that remain, in the grilling skill's usual format. Ask nothing the checklist already settled. Record the remaining questions under "still needed" in the triage notes, each with the person who must answer it: the reporter or a developer. Apply `Needs info` whenever a question remains, whoever must answer it.
 - **"Decisions approved" fails:** follow the bullet above, but never close this gap yourself. Ask each unapproved decision as a grilling question with your recommended answer. The item fails until a person answers it.
