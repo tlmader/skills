@@ -86,9 +86,9 @@ and the settings you can give it.
 | [`using-ynab`](plugins/household/skills/using-ynab/SKILL.md) | Update, split, or delete YNAB transactions through the official API | YNAB |
 | [`find-savings`](plugins/household/skills/find-savings/SKILL.md) | Find and track ranked savings on bills, subscriptions, and spending | Transaction data, web |
 | [`free-game-findings`](plugins/household/skills/free-game-findings/SKILL.md) | Find and claim free-to-keep game giveaways | Web, browser |
-| [`uploading-photos-to-notion`](plugins/household/skills/uploading-photos-to-notion/SKILL.md) | Upload photos to Notion as durable images beside their text | Notion |
-| [`setup-journal-project`](plugins/household/skills/setup-journal-project/SKILL.md) | Set up a Notion journal and the instructions that keep it | Notion, `uploading-photos-to-notion` |
-| [`setup-wayfinder-project`](plugins/household/skills/setup-wayfinder-project/SKILL.md) | Set up a Wayfinder tracker and documents store in Notion | Notion, [mattpocock/skills](https://github.com/mattpocock/skills) |
+| [`uploading-journal-photos`](plugins/household/skills/uploading-journal-photos/SKILL.md) | Upload a journal entry's photos into its Drive Photos folder under dated filenames | Google Drive, Google Sheets |
+| [`setup-journal-project`](plugins/household/skills/setup-journal-project/SKILL.md) | Set up a Google Drive journal and the instructions that keep it | Google Drive, Google Sheets, `uploading-journal-photos` |
+| [`setup-wayfinder-project`](plugins/household/skills/setup-wayfinder-project/SKILL.md) | Point a household project at the shared Drive Markdown issue tracker | Google Drive, [mattpocock/skills](https://github.com/mattpocock/skills) |
 
 `setup-journal-project` and `setup-wayfinder-project` run only when you invoke
 them by name.

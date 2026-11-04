@@ -1,0 +1,14 @@
+interface:
+  display_name: Uploading Journal Photos
+  short_description: Upload journal photos into a Drive Photos folder
+  default_prompt: Use $uploading-journal-photos to put these photos in the journal
+    Photos folder and record them on the entry.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

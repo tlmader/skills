@@ -1,7 +1,7 @@
 {
   "name": "household",
   "version": "0.1.0",
-  "description": "Budgeting with YNAB, savings research, free game giveaways, and Notion journals and trackers.",
+  "description": "Budgeting with YNAB, savings research, free game giveaways, and Google Drive journals and trackers.",
   "author": {
     "name": "tlmader",
     "url": "https://github.com/tlmader"
@@ -12,15 +12,15 @@
   "keywords": [
     "ynab",
     "budgeting",
-    "notion",
+    "drive",
     "journal",
     "games"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "Household",
-    "shortDescription": "Budgeting, savings, free games, and Notion journals for home life",
-    "longDescription": "Household collects skills for running a home: categorize YNAB transactions and learn from your corrections, find savings on bills and subscriptions, claim free-to-keep game giveaways, and keep Notion journals and trackers with their photos.",
+    "shortDescription": "Budgeting, savings, free games, and Google Drive journals for home life",
+    "longDescription": "Household collects skills for running a home: categorize YNAB transactions and learn from your corrections, find savings on bills and subscriptions, claim free-to-keep game giveaways, and keep Google Drive journals, their photos, and a Drive Markdown issue tracker.",
     "developerName": "tlmader",
     "category": "Productivity",
     "capabilities": [
