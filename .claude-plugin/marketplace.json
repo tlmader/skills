@@ -10,7 +10,7 @@
   "plugins": [
     {
       "name": "household",
-      "description": "Budgeting with YNAB, savings research, free game giveaways, and Notion journals and trackers",
+      "description": "Budgeting with YNAB, savings research, free game giveaways, and Google Drive journals and trackers",
       "source": "./plugins/household"
     },
     {

@@ -1,6 +1,6 @@
 interface:
   display_name: Setup Journal Project
-  short_description: Set up Notion journals and portable project instructions
+  short_description: Set up a Google Drive journal and its project instructions
   icon_small: assets/icon.svg
   icon_large: assets/icon.svg
 policy:
