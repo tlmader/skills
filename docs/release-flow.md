@@ -35,3 +35,18 @@ Release PR. Merging it tags the commit, publishes a GitHub Release, and updates
 
 Bot-generated release-please PRs from `release-please--*` branches are the only
 PRs that may omit a GitHub issue reference in the title.
+
+## Household plugin version
+
+Claude Code, Cursor, and Codex deliver plugin updates when `version` changes.
+The household plugin uses one version string in all three manifests:
+
+- `plugins/household/.claude-plugin/plugin.json`
+- `plugins/household/.cursor-plugin/plugin.json`
+- `plugins/household/.codex-plugin/plugin.json`
+
+Increase that version in the same pull request as any change under
+`plugins/household/`. `scripts/check-household-version.mjs` fails the pull
+request when the manifests disagree, or when `plugins/household` changed and
+the version did not increase past the base branch. Release Please, once
+enabled, remains the path for git tags and `CHANGELOG.md`.

@@ -27,6 +27,8 @@ This document describes the layout of `tlmader/skills`.
 | `docs/issue-tracker.md` | Compatibility symlink to `agents/issue-tracker.md`. |
 | `scripts/clean.sh` | Removes generated dependency and transient install files. |
 | `scripts/sync-work-plugin.sh` | Copies the Work plugin from patinaproject/skills into `plugins/work`. The `Sync Work plugin` workflow runs it daily. |
+| `scripts/open-work-sync-pr.sh` | Commits that copy onto `sync-work` and opens or updates one pull request, reusing one open tracking issue. |
+| `scripts/check-household-version.mjs` | Checks that the household Claude, Cursor, and Codex manifests share one version, and that household changes increase it. |
 | `scripts/worktree-setup.sh` | Syncs the default branch and installs dependencies in a new worktree. |
 | `skills-lock.json` | Lock file for project-local third-party skills. |
 | `AGENTS.md` | Shared agent workflow contract. `CLAUDE.md` imports it. |

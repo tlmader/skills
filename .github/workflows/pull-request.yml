@@ -117,3 +117,22 @@ jobs:
             exit 1
           fi
           echo "Breaking change markers are consistent."
+
+  household:
+    name: Check household version
+    runs-on: ubuntu-latest
+    steps:
+      # actions/checkout@v5.1.0
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+
+      - name: Require a household version bump
+        env:
+          HOUSEHOLD_VERSION_BASE: ${{ github.event.pull_request.base.sha }}
+        run: node scripts/check-household-version.mjs
+
+      - name: Test work sync and household version scripts
+        run: |
+          bash scripts/open-work-sync-pr.test.sh
+          bash scripts/check-household-version.test.sh

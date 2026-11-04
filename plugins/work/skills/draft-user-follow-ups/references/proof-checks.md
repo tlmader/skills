@@ -4,9 +4,40 @@
 
 Map each owed reply to the tracker issues and pull requests that its answer
 depends on. Use the post's linked issue, issue keys in the thread, and issues
-whose description or comments link the thread. When no dependency can be
-found, block the reply with the blocker "no linked work found" and name the
-threads searched.
+whose description or comments link the thread.
+
+Then resolve each mapped issue against its relations and comments:
+
+1. **Read.** Read the issue's relations and comments before any check runs.
+2. **Tracking issue.** An issue that matches `tracker_reply_issue` tracks the
+   reply, not the work. Do not read its status as the work's status, and do
+   not remap it as a duplicate. Replace it with every issue it is blocked by.
+   Read those issues, then apply steps 3 to 6 to them. Follow only blockers,
+   not child issues. When a child issue holds the work, report it under
+   Tracker cleanup as a child that should block the tracking issue. A
+   tracking issue with no blockers has no work mapped. List the tracking
+   issue under Tracker cleanup as Done after the reply is sent.
+3. **Duplicate signal.** An issue has a duplicate signal when either holds:
+   - a `duplicate` relation in which the issue is the duplicate, not the
+     original; or
+   - a comment by an operator or a triage agent that names exactly one issue
+     as the original, with no later comment withdrawing it. When comments
+     conflict, the latest one wins.
+4. **Remap.** A duplicate signal replaces the issue with its original. Remap
+   in any state of the original except canceled, such as Linear's Canceled or
+   GitHub's closed as not planned. With a canceled original, keep the issue.
+   When the original is still open, **shipped** fails and names the original.
+   A remap from a relation is **measured**. A remap from a comment is
+   **inferred**. Show the label on the reply's Depends on line, and list the
+   remap under Tracker cleanup.
+5. **Blockers.** Add every issue that blocks the issue, or its original after
+   a remap, as a dependency. The blocked issue stays a dependency.
+6. **One hop.** Do not read the relations or comments of an issue reached by
+   step 4 or 5, except for step 5 on an original. Do not follow a duplicate of
+   a duplicate.
+
+When no dependency remains, block the reply with the blocker "no linked work
+found" and name the threads searched.
 
 ## The three checks
 
@@ -14,7 +45,9 @@ Run the checks in order. The first failing check is the blocker.
 
 ### Shipped
 
-All of these hold for every dependency:
+A dependency issue with no merged pull request fails this check with the
+blocker "no merged pull request for <issue>". All of these hold for every
+dependency:
 
 - The pull request's merge commit is in the configured `production_branch`.
 - A production deploy of that commit, or of a later commit, succeeded in the
@@ -31,6 +64,11 @@ carries the change. When several deploys pass, use the earliest one that
 carries every dependency. When that deploy names no version, the check fails
 with the blocker "no release version on the passing deploy".
 
+Record the date of the passing production deploy with the release version.
+Use the deploy or release that supplies the version. For a mobile change, that
+is the over-the-air update publish or the store release going live, whichever
+carries the version. Record its completion time.
+
 ### Data
 
 Every backfill, migration, or data job that the change needs ran in
@@ -45,8 +83,18 @@ the page, the item, or the public API response the customer reported. Use only
 public reads. The check passes when the live surface shows the fixed behavior
 for that case.
 
-When no public surface can show the case, the check fails. Block the reply
-with "Clears when: the operator confirms the case in the live product".
+When no public surface can show the case and the case is an in-app
+interaction, the check passes as **inferred** when both of these hold:
+
+- The dependency's pull request or tracker issue records a reproduction of the
+  reported behavior.
+- The dependency's pull request adds or changes a test for that behavior.
+
+The reply must then ask the customer to try the action again, as `SKILL.md`
+step 5 describes.
+
+Otherwise, the check fails. Block the reply with "Clears when: the operator
+confirms the case in the live product".
 
 ## Evidence labels
 

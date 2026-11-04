@@ -45,8 +45,12 @@ from Repo** with `https://github.com/tlmader/skills`. Both `household` and
 
 Cursor marketplaces list only plugins stored in their own repository, so
 `plugins/work` is a copy of upstream's Work plugin. A daily workflow refreshes
-it with `scripts/sync-work-plugin.sh` and opens a pull request when upstream
-changed, so Cursor's copy is current once that pull request merges.
+it with `scripts/sync-work-plugin.sh` and opens one pull request when upstream
+changed, reusing a single open tracking issue for that refresh. Opening the
+pull request needs the repository setting **Allow GitHub Actions to create and
+approve pull requests** under **Settings → Actions → General → Workflow
+permissions**. Until that is enabled, the workflow leaves the `sync-work`
+branch pushed and records the setting on the tracking issue.
 
 Without a team marketplace, ask a Bot to save a skill from its `SKILL.md`, for
 example: "Save
@@ -93,7 +97,7 @@ and the settings you can give it.
 `setup-journal-project` and `setup-wayfinder-project` run only when you invoke
 them by name.
 
-To organize Google Drive or other cloud storage, use `cloud-storage-organizer`
+To organize Google Drive or other cloud storage, use `cloud-storage-organization`
 from the `work` plugin.
 
 ## Conventions
