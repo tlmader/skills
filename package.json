@@ -22,6 +22,7 @@
     "commit:retry": "git-cz --retry",
     "commitlint": "commitlint",
     "lint:md": "markdownlint-cli2 \"**/*.md\"",
+    "check:household-version": "node scripts/check-household-version.mjs",
     "skills:install": "pnpm dlx skills@latest experimental_install --yes"
   },
   "config": {

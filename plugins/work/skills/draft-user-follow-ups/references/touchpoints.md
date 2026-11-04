@@ -22,7 +22,9 @@ The reply location is the thread link.
 
 Open conversations, and conversations closed within the `lookback`, in two
 cases. The last message is from the customer. Or an operator message promised
-a follow-up and no later operator message exists. The reply location is the conversation link.
+a follow-up and no later operator message exists. The reply location is the
+conversation link. When the link cannot be built, it is "no direct link" and
+the conversation ID, per the [links rule](response-format.md#links).
 
 ## Feedback tool: posts
 
@@ -48,8 +50,16 @@ them separate and mark the join as inferred in the response.
 
 For each person, read every thread on every touchpoint, sent mail included.
 
+For each person, also list the operator drafts on every touchpoint. Match each
+email draft to its thread by thread ID. List the feedback-tool drafts in each
+conversation or post when the session can read them. Attach each draft, with
+its link and last-edited date, to that person's candidate. A draft in a support
+conversation with no direct link follows the
+[links rule](response-format.md#links).
+
 ## Answered
 
 A candidate is **answered** when an operator message after the owed message
 exists on any touchpoint, in any thread with that person. This is the one
-definition of answered. The skill drops answered candidates.
+definition of answered. An unsent draft is not an operator message, so a
+draft never marks a candidate answered. The skill drops answered candidates.

@@ -64,6 +64,9 @@ lazily when useful. See `docs/agents/domain.md`.
 - `pnpm commit`: create a guided conventional commit with issue tagging
 - `pnpm exec commitlint --edit <path>`: validate commit messages manually
 - `pnpm lint:md`: lint all Markdown files with `markdownlint-cli2`
+- `pnpm check:household-version`: require the household Claude, Cursor, and
+  Codex manifests to share one version, and require a higher version when
+  `plugins/household` changed since `origin/main` (or `HOUSEHOLD_VERSION_BASE`)
 - `find plugins/household/skills -mindepth 2 -maxdepth 2 -name SKILL.md | sort`: list skill entry
   points
 
@@ -151,8 +154,8 @@ each `uses:` line, leave a comment naming the action and version the SHA
 corresponds to.
 
 ```yaml
-# actions/checkout@v4.3.1
-- uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+# actions/checkout@v5.1.0
+- uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
 ```
 
 `actionlint` runs in CI on pull requests that change workflows.

@@ -4,7 +4,7 @@
     "name": "tlmader"
   },
   "metadata": {
-    "description": "Personal collection of agent skills for Claude Code and Codex"
+    "description": "Personal collection of agent skills for Claude Code, Cursor, and Codex"
   },
   "plugins": [
     {

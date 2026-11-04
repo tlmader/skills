@@ -12,8 +12,8 @@ jobs:
     name: Lint Actions workflows
     runs-on: ubuntu-latest
     steps:
-      # actions/checkout@v4.3.1
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      # actions/checkout@v5.1.0
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
       - name: Install actionlint
         run: bash <(curl -sL https://raw.githubusercontent.com/rhysd/actionlint/v1.7.12/scripts/download-actionlint.bash) 1.7.12
       - name: Run actionlint
