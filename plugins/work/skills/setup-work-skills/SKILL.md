@@ -9,7 +9,7 @@ disable-model-invocation: true
 Scaffold the per-repo configuration that the engineering skills assume:
 
 - **Issue tracker**: where issues live (GitHub by default; local markdown is also supported out of the box)
-- **Labels**: the Type, Theme, and Triage label vocabulary, written into the issue tracker config
+- **Labels**: the Type, Theme, Repository, and Triage label vocabulary, written into the issue tracker config
 - **Domain docs**: where `GLOSSARY.md` and ADRs live, and the consumer rules for reading them
 
 This is a prompt-driven skill, not a deterministic script. Explore, present what you found, confirm with the user, then write.
@@ -48,9 +48,20 @@ Default posture: these skills were designed for GitHub. If a `git remote` points
 
 Record the choice in `docs/agents/issue-tracker.md`. The GitHub and GitLab templates carry a "PRs as a request surface" flag, defaulted **off**. Leave it off and don't raise it: a user who wants external PRs in the triage queue can flip the flag in the file later.
 
+For GitHub or GitLab, ask which account will write triage artifacts and replace every `<triage-login>` or `<triage-username>` placeholder in the template with its login, including the one in the Lookup command. A GitHub App's login is `<app-slug>[bot]`. For a person, propose the signed-in login from `gh api user --jq .login` or the `username` field of `glab api user`.
+
+Every template also carries a separate "Triage applies confident closures" flag, defaulted **off**. With it on, unattended triage closes a confident duplicate, or an already-implemented request as `Won't fix`, instead of recommending it. Leave it off and don't raise it. A freeform adapter without the flag reads as off.
+
 **Section B: Triage label vocabulary.** Skip this section entirely if the `triage` skill isn't installed (exploration told you), since an uninstalled skill needs no labels.
 
-If it is installed, add [triage-labels.md](./triage-labels.md) as-is, without asking, as the `## Labels` section of `docs/agents/issue-tracker.md`. That section is the only place the repo defines its Type and Theme labels; other skills and docs point to it. `triage` applies those exact strings, so there is no mapping to configure. Write no separate `docs/agents/triage-labels.md`, and when one exists, fold it into the section and delete it.
+If it is installed, add [triage-labels.md](./triage-labels.md) as the `## Labels` section of `docs/agents/issue-tracker.md`, without asking about anything but its **Repository group** list below. That section is the only place the repo defines its Type, Theme, and Repository labels; other skills and docs point to it. `triage` applies those exact strings, so there is no mapping to configure. Write no separate `docs/agents/triage-labels.md`, and when one exists, fold it into the section, moving its Repository rows into the list below, and delete it.
+
+The **Repository group** list belongs to this repository, not to the file. Its table sits between the `<!-- repository-group:start -->` and `<!-- repository-group:end -->` markers, after the `<!-- label-vocabulary:end -->` marker:
+
+- **First run.** When `docs/agents/issue-tracker.md` has no `## Labels` section, or its **Repository group** list still holds the `<repository-slug>` placeholder row after Repository rows are moved into it, replace that row inside the `repository-group` markers with this repository's slug and a one-line definition, and show both in the step 3 draft. When the list already holds the slug, drop the placeholder row instead. Add or remove rows only between the `repository-group` markers, and keep the header and separator. The slug is the repository name from `git remote` (`skills` for `patinaproject/skills`). Use it only when it matches `^[A-Za-z0-9][A-Za-z0-9._-]*$`, and write it as a literal label, never as part of a command. When `git remote` gives no name or the name does not match, ask for a slug that matches the pattern.
+- **Re-run.** When the section exists, replace only the text between the `<!-- label-vocabulary:start -->` and `<!-- label-vocabulary:end -->` markers with the file's, and keep the section's existing **Repository group** list. When the section holds exactly one `<!-- repository-group:start -->` line and one `<!-- repository-group:end -->` line, in that order and after the `<!-- label-vocabulary:end -->` marker, keep the text between them as the repository wrote it, and keep the lead-in paragraph. When the section has no `repository-group` markers, has only one of them, repeats one, has them in the wrong order, or has them before the `label-vocabulary` end marker, remove every stray `repository-group` marker line. Then find the paragraph that starts with **Repository group** after the `label-vocabulary` end marker, and wrap the first contiguous `| Label | Definition |` table after that paragraph in the `repository-group` start and end markers. When no such table exists, create the list from the file's, markers included. When the old marked region still holds Repository table rows, or the section has no `label-vocabulary` markers and holds a Repository table, move those rows inside the `repository-group` markers before you replace the vocabulary, so no label is lost. Never add a row whose label is already there. A section with no `label-vocabulary` markers takes the file's text in full, with the moved rows added inside the file's `repository-group` markers. Keep the rest of a marked section as the repository wrote it, including the text before the `label-vocabulary` start marker, the **Triage** table, and everything after that table. When the section has no **Triage** table, add the file's after the `repository-group` end marker, or after the `label-vocabulary` end marker when the section has no list.
+
+In the step 3 draft, show every Repository row moved from an old region, an unmarked section, or a folded `docs/agents/triage-labels.md`, with its definition. Point out each one whose label is not this repository's slug, so the user can drop rows for repositories this tracker does not hold. Leave out each row whose label does not match the slug pattern, and name it in the draft. Write every moved label and definition as literal text, never as part of a command. Name each **Repository group** list the re-run repaired or created.
 
 Also add [priority-rubric.md](./priority-rubric.md) as-is, without asking, as the `## Priority rubric` section of `docs/agents/issue-tracker.md`. `triage` assigns priority from that section. When the section already exists, leave it unchanged.
 
@@ -64,6 +75,8 @@ Show the user a draft of:
 
 - The `## Agent skills` block to add to whichever of `CLAUDE.md` / `AGENTS.md` is being edited (see step 4 for selection rules)
 - The contents of `docs/agents/issue-tracker.md` (with its `## Labels` and `## Priority rubric` sections only when `triage` is installed) and `docs/agents/domain.md`
+
+On a re-run of a marked section, the draft's `## Labels` section keeps its text outside the marked region as the repository wrote it, apart from the `repository-group` marker and **Repository group** changes above and a **Triage** table added where the section had none.
 
 Let them edit before writing.
 
@@ -90,7 +103,7 @@ The block:
 
 ### Triage labels
 
-[one-line summary of the label vocabulary]. See `docs/agents/issue-tracker.md` → **Labels**.
+[one-line summary of the Type, Theme, Repository, and Triage label vocabulary]. See `docs/agents/issue-tracker.md` → **Labels**.
 
 ### Domain docs
 

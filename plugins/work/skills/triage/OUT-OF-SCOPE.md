@@ -87,14 +87,15 @@ Only when a request that does not report something broken is *rejected* as `Won'
 
 Do **not** write here when something is closed as `Won't fix` because it's **already implemented**. That's a built feature, not a rejected one; recording it would poison the dedup checks with false rejections. Instead, the closing comment points to where the feature already lives.
 
+Do **not** write here when an issue is closed as `Won't fix` because it's a **duplicate** either. The original issue still carries the request, and the closing comment names it.
+
 The flow:
 
 1. Maintainer decides a feature request is out of scope
 2. Check if a matching `.out-of-scope/` file already exists
 3. If yes: append the new issue to the "Prior requests" list
 4. If no: create a new file with the concept name, decision, reason, and first prior request
-5. Post a comment on the issue explaining the decision and mentioning the `.out-of-scope/` file
-6. Close the issue with the `Won't fix` label
+5. Close the issue through the issue tracker config's **Close as `Won't fix`** operation, with a comment that explains the decision and mentions the `.out-of-scope/` file. That operation applies the `Won't fix` label in the same write as the close, so write no label before it
 
 ## Updating or removing out-of-scope files
 
