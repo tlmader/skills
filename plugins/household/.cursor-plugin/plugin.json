@@ -1,8 +1,8 @@
 {
   "name": "household",
   "displayName": "Household",
-  "version": "0.2.0",
-  "description": "Budgeting with YNAB, savings research, free game giveaways, and Google Drive journals and trackers.",
+  "version": "0.3.0",
+  "description": "Budgeting with YNAB, savings research, free game giveaways, cloud storage organization, and Google Drive journals and trackers.",
   "author": {
     "name": "tlmader",
     "url": "https://github.com/tlmader"
@@ -14,6 +14,7 @@
     "ynab",
     "budgeting",
     "drive",
+    "cloud-storage",
     "journal",
     "games"
   ],

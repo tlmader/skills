@@ -90,15 +90,13 @@ and the settings you can give it.
 | [`using-ynab`](plugins/household/skills/using-ynab/SKILL.md) | Update, split, or delete YNAB transactions through the official API | YNAB |
 | [`find-savings`](plugins/household/skills/find-savings/SKILL.md) | Find and track ranked savings on bills, subscriptions, and spending | Transaction data, web |
 | [`free-game-findings`](plugins/household/skills/free-game-findings/SKILL.md) | Find and claim free-to-keep game giveaways | Web, browser |
+| [`cloud-storage-organization`](plugins/household/skills/cloud-storage-organization/SKILL.md) | File loose files in cloud storage under rules learned from your corrections in `Agents/Cloud storage organization` | Cloud storage |
 | [`uploading-journal-photos`](plugins/household/skills/uploading-journal-photos/SKILL.md) | Upload a journal entry's photos into its Drive Photos folder under dated filenames | Google Drive, Google Sheets |
 | [`setup-journal-project`](plugins/household/skills/setup-journal-project/SKILL.md) | Set up a Google Drive journal and the instructions that keep it | Google Drive, Google Sheets, `uploading-journal-photos` |
 | [`setup-wayfinder-project`](plugins/household/skills/setup-wayfinder-project/SKILL.md) | Point a household project at the shared Drive Markdown issue tracker | Google Drive, [mattpocock/skills](https://github.com/mattpocock/skills) |
 
 `setup-journal-project` and `setup-wayfinder-project` run only when you invoke
 them by name.
-
-To organize Google Drive or other cloud storage, use `cloud-storage-organization`
-from the `work` plugin.
 
 ## Conventions
 
