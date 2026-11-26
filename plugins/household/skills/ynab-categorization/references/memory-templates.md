@@ -74,12 +74,13 @@ and applies it.
 ## Queued
 ```
 
-A question names its transactions, its best guess, and an empty answer line:
+A question names each transaction with the identity the skill requires, its
+best guess, and an empty answer line:
 
 ```markdown
-1. Which category for these 3 "AMZN Mktp" purchases?
+1. Which category for these 3 "AMZN Mktp" purchases on Personal?
    - Best guess: Household Supplies (2 of 3 recent approved Amazon purchases)
-   - Transactions: 2026-10-18 24.99 (id …a1f), 2026-10-19 12.50 (id …b2c), 2026-10-20 88.00 (id …c3d)
+   - Transactions: 2026-10-18 Amazon Visa 4242 "AMZN Mktp" 24.99 USD (id …a1f), 2026-10-19 Amazon Visa 4242 "AMZN Mktp" 12.50 USD (id …b2c), 2026-10-20 Amazon Visa 4242 "AMZN Mktp" 88.00 USD (id …c3d)
    - Answer:
 ```
 

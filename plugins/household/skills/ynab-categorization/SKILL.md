@@ -233,6 +233,12 @@ Categorization is the completion gate. For an ordinary expense or inflow:
    mark them `ask`. Skip, with the exact blocker, only when the item may be a
    duplicate or missing data creates a structural risk.
 
+A question about a transaction names the YNAB plan and, for each transaction,
+the account (its name and last four digits, or the name alone when it has
+none), the date, the payee, and the amount in USD. Carry that identity in
+every question card, widget, and prose question, including the line written
+to `Questions`.
+
 `Inflow: Ready to Assign` takes only evidenced new money: pay, interest,
 dividends, gifts, and similar income. Marketplace or payment-processor identity
 alone does not establish purpose; keep working through precedent and research
